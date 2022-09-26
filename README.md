@@ -1,2 +1,2 @@
-# gse-widgets
+# GSEWidgets
 Qt based widget library
