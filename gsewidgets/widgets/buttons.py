@@ -169,8 +169,8 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
         # Get the new path for the file
         new_file_path, _ = QFileDialog.getOpenFileName(
             parent=self,
-            caption=self._caption,
-            directory=self._target_directory,
+            caption=self.caption,
+            directory=self.target_directory,
             filter=self._filter,
             options=options,
         )
