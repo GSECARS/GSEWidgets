@@ -23,6 +23,12 @@ from qtpy.QtCore import QSize, QObject, Signal
 from qtpy.QtWidgets import QPushButton, QFileDialog
 from typing import Optional
 
+__all__ = {
+    "FlatButton",
+    "FileBrowserButton",
+    "DirectoryBrowserButton"
+}
+
 
 class FlatButton(QPushButton):
     """Used to create instances of simple flat buttons"""
