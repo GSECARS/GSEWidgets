@@ -20,6 +20,7 @@
 
 from pathlib import Path
 from qtpy.QtCore import QSize, QObject, Signal
+from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QPushButton, QFileDialog
 from typing import Optional
 
@@ -37,13 +38,15 @@ class FlatButton(QPushButton):
             self,
             text: Optional[str] = None,
             size: Optional[QSize] = None,
-            object_name: Optional[str] = "flat-button"
+            object_name: Optional[str] = "flat-button",
+            icon: Optional[QIcon] = None
     ) -> None:
         super(FlatButton, self).__init__()
 
         self._text = text
         self._size = size
         self._object_name = object_name
+        self._icon = icon
 
         # Run configuration method
         self._configure_flat_button()
@@ -65,6 +68,10 @@ class FlatButton(QPushButton):
         if self._size is not None:
             self.setFixedSize(self._size)
 
+        # Set icon
+        if self._icon is not None:
+            self.setIcon(self._icon)
+
         # Connect click event
         self.clicked.connect(self._button_click_event)
 
@@ -80,6 +87,7 @@ class AbstractBrowserButton(FlatButton):
             text: Optional[str] = None,
             size: Optional[QSize] = None,
             object_name: Optional[str] = "flat-button",
+            icon: Optional[QIcon] = None,
             caption: Optional[str] = "Select File",
             invalid_characters: Optional[str] = '<>"\\|?*#& ',
     ) -> None:
@@ -87,6 +95,7 @@ class AbstractBrowserButton(FlatButton):
             text=text,
             size=size,
             object_name=object_name,
+            icon=icon,
         )
 
         self._caption = caption
@@ -124,6 +133,7 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
             text: Optional[str] = None,
             size: Optional[QSize] = None,
             object_name: Optional[str] = "flat-button",
+            icon: Optional[QIcon] = None,
             caption: Optional[str] = "Select File",
             invalid_characters: Optional[str] = '<>"\\|?*#& ',
             file_extensions: Optional[list[str]] = None,
@@ -132,6 +142,7 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
             text=text,
             size=size,
             object_name=object_name,
+            icon=icon,
             caption=caption,
             invalid_characters=invalid_characters,
         )
@@ -198,6 +209,7 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
             text: Optional[str] = None,
             size: Optional[QSize] = None,
             object_name: Optional[str] = "flat-button",
+            icon: Optional[QIcon] = None,
             caption: Optional[str] = "Select File",
             invalid_characters: Optional[str] = '<>"\\|?*#& ',
     ) -> None:
@@ -205,6 +217,7 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
             text=text,
             size=size,
             object_name=object_name,
+            icon=icon,
             caption=caption,
             invalid_characters=invalid_characters,
         )
