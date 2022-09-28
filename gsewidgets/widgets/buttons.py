@@ -67,6 +67,44 @@ class FlatButton(QPushButton):
         self.clearFocus()
 
 
+class AbstractBrowserButton(FlatButton):
+    """Abstract button class to used for buttons that open QFileDialog widgets."""
+    def __init__(
+            self,
+            text: Optional[str] = None,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "flat-button",
+            caption: Optional[str] = "Select File",
+            invalid_characters: Optional[str] = '<>"\\|?*#& ',
+    ) -> None:
+        super(AbstractBrowserButton, self).__init__(
+            text=text,
+            size=size,
+            object_name=object_name,
+        )
+
+        self._caption = caption
+        self._invalid_characters = invalid_characters
+
+        # Set the initial target directory
+        self._target_directory = str(Path.home())
+
+    @property
+    def target_directory(self) -> str:
+        return self._target_directory
+
+    @target_directory.setter
+    def target_directory(self, value: str) -> None:
+        # Check invalid characters
+        if self._invalid_characters is None:
+            self._invalid_characters = '<>"\\|?*#& '
+        # Validate based on invalid characters
+        for char in self._invalid_characters:
+            value = value.replace(char, "_")
+        # Set the target directory
+        self._target_directory = value
+
+
 class FileBrowserButton(FlatButton, QObject):
     """Used to create instances of flat button that open a QFileDialog to select a file."""
     file_path_changed: Signal = Signal(bool)
