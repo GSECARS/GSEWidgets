@@ -19,6 +19,6 @@
 # ----------------------------------------------------------------------
 
 from gsewidgets import _version
-from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton
+from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton
 
 __version__ = _version.get_versions()["version"]

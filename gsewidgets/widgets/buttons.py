@@ -177,3 +177,45 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
     @property
     def file_path(self) -> str:
         return self._file_path
+
+
+class DirectoryBrowserButton(AbstractBrowserButton, QObject):
+    """Used to create instances of flat button that open a QFileDialog to select a directory."""
+    directory_changed: Signal = Signal(bool)
+
+    def __init__(
+            self,
+            text: Optional[str] = None,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "flat-button",
+            caption: Optional[str] = "Select File",
+            invalid_characters: Optional[str] = '<>"\\|?*#& ',
+    ) -> None:
+        super(DirectoryBrowserButton, self).__init__(
+            text=text,
+            size=size,
+            object_name=object_name,
+            caption=caption,
+            invalid_characters=invalid_characters,
+        )
+
+        self._directory = ""
+
+    def _button_click_event(self) -> None:
+        """Uses QFileDialog to get the selected directory, and emits a directory_changed signal."""
+        # Clears the focus state of the button
+        self.clearFocus()
+        # Open file dialog and get the directory
+        new_directory = QFileDialog.getExistingDirectory(
+            parent=self,
+            caption=self.caption,
+            directory=self.target_directory
+        )
+        # Update the directory path and emit the directory_changed signal
+        if new_directory != "":
+            self._directory = new_directory
+            self.directory_changed.emit(True)
+
+    @property
+    def directory(self) -> str:
+        return self._directory
