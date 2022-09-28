@@ -96,6 +96,10 @@ class AbstractBrowserButton(FlatButton):
         self._target_directory = str(Path.home())
 
     @property
+    def caption(self) -> str:
+        return self._caption
+
+    @property
     def target_directory(self) -> str:
         return self._target_directory
 
