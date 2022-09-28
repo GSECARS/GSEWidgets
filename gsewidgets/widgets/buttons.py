@@ -126,7 +126,7 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
             object_name: Optional[str] = "flat-button",
             caption: Optional[str] = "Select File",
             invalid_characters: Optional[str] = '<>"\\|?*#& ',
-            file_extensions: list[str] = None,
+            file_extensions: Optional[list[str]] = None,
     ) -> None:
         super(FileBrowserButton, self).__init__(
             text=text,
