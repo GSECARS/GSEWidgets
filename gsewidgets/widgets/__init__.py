@@ -17,8 +17,3 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
-
-from gsewidgets import _version
-from gsewidgets.widgets.buttons import FlatButton
-
-__version__ = _version.get_versions()["version"]
