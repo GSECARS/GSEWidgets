@@ -20,14 +20,15 @@
 
 from pathlib import Path
 from qtpy.QtCore import QSize, QObject, Signal
-from qtpy.QtGui import QIcon
-from qtpy.QtWidgets import QPushButton, QFileDialog
+from qtpy.QtGui import QIcon, QColor
+from qtpy.QtWidgets import QPushButton, QFileDialog, QColorDialog
 from typing import Optional
 
 __all__ = {
     "FlatButton",
     "FileBrowserButton",
-    "DirectoryBrowserButton"
+    "DirectoryBrowserButton",
+    "ColorDialogButton"
 }
 
 
@@ -242,3 +243,75 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
     @property
     def directory(self) -> str:
         return self._directory
+
+
+class ColorDialogButton(FlatButton, QObject):
+    """
+    Used to create instances of flat button that open a QColorDialog to select a color.
+    The background color of the button will change to reflect the selected color.
+    """
+    color_changed: Signal = Signal(bool)
+
+    def __init__(
+            self,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "color-button",
+            default_color: Optional[QColor] = None,
+    ) -> None:
+        super(ColorDialogButton, self).__init__(
+            text=None,
+            size=size,
+            object_name=object_name,
+            icon=None
+        )
+
+        self._color = default_color
+
+        # Set the QColorDialog
+        self._color_dialog = QColorDialog()
+        # Run the color button configuration method
+        self._configure_color_button()
+
+    def _configure_color_button(self) -> None:
+        # Enable alpha channel
+        self._color_dialog.setOption(QColorDialog.ShowAlphaChannel)
+
+        # Set the color
+        if self._color is not None:
+            self._color_dialog.setCurrentColor(self._color)
+        else:
+            self._color = self._color_dialog.currentColor()
+
+        # Temporary disable flat
+        self.setFlat(False)
+
+        # Set the background color of the button
+        self.setStyleSheet(f"background-color: {self.color.name()};")
+
+        # Connect color selected event
+        self._color_dialog.colorSelected.connect(self._color_selection_changed)
+
+    def _button_click_event(self) -> None:
+        # Clears the focus state of the button.
+        self.clearFocus()
+        # Open the color dialog window
+        self._color_dialog.showNormal()
+        # Bring the color dialog window in front of all windows
+        self._color_dialog.activateWindow()
+
+    def _color_selection_changed(self) -> None:
+        # Get color selection
+        new_color = self._color_dialog.currentColor()
+        # Update the color value, change the background color of the button and
+        # emit the color_changed signal
+        if self._color != new_color:
+            # Update color
+            self._color = new_color
+            # Change background color
+            self.setStyleSheet(f"background-color: {self.color.name()};")
+            # Emit the color_changed signal
+            self.color_changed.emit(True)
+
+    @property
+    def color(self) -> QColor:
+        return self._color
