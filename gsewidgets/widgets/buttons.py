@@ -105,7 +105,7 @@ class AbstractBrowserButton(FlatButton):
         self._target_directory = value
 
 
-class FileBrowserButton(FlatButton, QObject):
+class FileBrowserButton(AbstractBrowserButton, QObject):
     """Used to create instances of flat button that open a QFileDialog to select a file."""
     file_path_changed: Signal = Signal(bool)
 
@@ -115,26 +115,24 @@ class FileBrowserButton(FlatButton, QObject):
             size: Optional[QSize] = None,
             object_name: Optional[str] = "flat-button",
             caption: Optional[str] = "Select File",
+            invalid_characters: Optional[str] = '<>"\\|?*#& ',
             file_extensions: list[str] = None,
-            star_directory: Optional[str] = None
     ) -> None:
         super(FileBrowserButton, self).__init__(
             text=text,
             size=size,
-            object_name=object_name
+            object_name=object_name,
+            caption=caption,
+            invalid_characters=invalid_characters,
         )
 
-        self._caption = caption
         self._file_extensions = file_extensions
-        self._start_directory = star_directory
 
         self._file_path: str = ""
         self._filter: str = ""
 
         # Configure the file filter string
         self._configure_file_filter()
-        # Configure the start directory string
-        self._configure_start_directory()
 
     def _configure_file_filter(self) -> None:
         """Sets the value of the filter string for the accepted files."""
@@ -152,13 +150,10 @@ class FileBrowserButton(FlatButton, QObject):
             # Remove first character
             self._filter = self._filter[1:]
 
-    def _configure_start_directory(self) -> None:
-        """Sets the starting directory to be used."""
-        if self._start_directory is None:
-            self._start_directory = str(Path.home())
-
     def _button_click_event(self) -> None:
         """Uses QFileDialog to get the selected file path, and emits a file_path_changed signal."""
+        # Clears the focus state of the button
+        self.clearFocus()
         # Create the QFileDialog widget
         dialog = QFileDialog()
         # Set the file mode
@@ -169,7 +164,7 @@ class FileBrowserButton(FlatButton, QObject):
         new_file_path, _ = QFileDialog.getOpenFileName(
             parent=self,
             caption=self._caption,
-            directory=self._start_directory,
+            directory=self._target_directory,
             filter=self._filter,
             options=options,
         )
@@ -178,9 +173,6 @@ class FileBrowserButton(FlatButton, QObject):
         if new_file_path != "":
             self._file_path = new_file_path
             self.file_path_changed.emit(True)
-
-        # Clears the focus state of the button
-        self.clearFocus()
 
     @property
     def file_path(self) -> str:
