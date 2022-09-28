@@ -18,6 +18,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
+from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QApplication
 
-__version__ = _version.get_versions()["version"]
+from gsewidgets.examples.controller import MainController
+
+# Enable high DPI support
+QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+
+# Application controller
+app = MainController()

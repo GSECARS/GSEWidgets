@@ -18,6 +18,19 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
+import sys
+from qtpy.QtWidgets import QApplication
 
-__version__ = _version.get_versions()["version"]
+from gsewidgets.examples.widget import MainWidget
+
+
+class MainController:
+
+    def __init__(self) -> None:
+        """Initialize the main controller."""
+        self._app = QApplication(sys.argv)
+        self._widget = MainWidget()
+
+    def run(self, version: str) -> None:
+        self._widget.display_window(version=version)
+        sys.exit(self._app.exec())

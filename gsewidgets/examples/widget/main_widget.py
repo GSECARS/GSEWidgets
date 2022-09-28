@@ -18,6 +18,18 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
+from qtpy.QtWidgets import QMainWindow
 
-__version__ = _version.get_versions()["version"]
+
+class MainWidget(QMainWindow):
+
+    def __init__(self) -> None:
+        """Initialize the main window."""
+        super(MainWidget, self).__init__()
+
+    def display_window(self, version: str) -> None:
+        """Set the title of the main window and display to screen."""
+        # Set window title based on current version
+        self.setWindowTitle(f"GSEWidgets {version}")
+        # Display the window
+        self.showNormal()

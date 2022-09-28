@@ -18,6 +18,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
-
-__version__ = _version.get_versions()["version"]
+from gsewidgets.examples.widget.main_widget import MainWidget
