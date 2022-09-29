@@ -22,5 +22,6 @@ from gsewidgets import _version
 from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton, ColorDialogButton
 from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
+from gsewidgets.widgets.comboboxes import FullComboBox
 
 __version__ = _version.get_versions()["version"]
