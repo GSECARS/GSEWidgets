@@ -20,5 +20,6 @@
 
 from gsewidgets import _version
 from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton, ColorDialogButton
+from gsewidgets.widgets.spinboxes import NumericSpinBox
 
 __version__ = _version.get_versions()["version"]
