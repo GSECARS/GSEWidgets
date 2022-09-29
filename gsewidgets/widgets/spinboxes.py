@@ -19,11 +19,13 @@
 # ----------------------------------------------------------------------
 
 from qtpy.QtCore import QSize, Qt
+from qtpy.QtGui import QWheelEvent
 from qtpy.QtWidgets import QDoubleSpinBox, QAbstractSpinBox
 from typing import Optional
 
 __all__ = {
-    "NumericSpinBox"
+    "NumericSpinBox",
+    "NoWheelNumericSpinBox"
 }
 
 
@@ -104,3 +106,32 @@ class NumericSpinBox(QDoubleSpinBox):
     def _return_pressed_event(self) -> None:
         """Clears the focus state of the spinbox."""
         self.clearFocus()
+
+
+class NoWheelNumericSpinBox(NumericSpinBox):
+    """Used to create instances of NumericSpinBox that ignore all mouse wheel events."""
+
+    def __init__(
+            self,
+            min_value: float,
+            max_value: float,
+            default_value: float,
+            incremental_step: float,
+            precision: Optional[int] = 0,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "numeric-spinbox"
+    ):
+        super(NoWheelNumericSpinBox, self).__init__(
+            min_value=min_value,
+            max_value=max_value,
+            default_value=default_value,
+            incremental_step=incremental_step,
+            precision=precision,
+            size=size,
+            object_name=object_name
+        )
+
+    def wheelEvent(self, event: QWheelEvent) -> None:
+        """Sets the behavior for the mouse wheel events."""
+        # Ignore all events
+        event.ignore()
