@@ -18,9 +18,21 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
-from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton, ColorDialogButton
-from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox
-from gsewidgets.widgets.messageboxes import ErrorMessageBox
+from qtpy.QtWidgets import QMessageBox
+from typing import Optional
 
-__version__ = _version.get_versions()["version"]
+__all__ = {"ErrorMessageBox"}
+
+
+class ErrorMessageBox(QMessageBox):
+    """Generic QMessageBox for creating custom error message boxes."""
+
+    def __init__(self, message: str, title: Optional[str] = None) -> None:
+        super(ErrorMessageBox, self).__init__()
+
+        # Check the error title
+        if title is None:
+            title = "Error"
+
+        # Set the critical message box values
+        self.critical(self, title, message, QMessageBox.Ok)
