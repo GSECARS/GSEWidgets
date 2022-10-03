@@ -18,8 +18,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView
+from qtpy.QtCore import QObject, Signal, Qt
+from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QCheckBox, QTableWidgetItem
 from typing import Optional
+
+__all__ = {
+    "XYZCollectionPointsTable"
+}
 
 
 class TableWidget(QTableWidget):
@@ -101,3 +106,101 @@ class TableWidget(QTableWidget):
             self.removeRow(row)
         # Reset the row count
         self.setRowCount(0)
+
+
+class XYZCollectionPointsTable(TableWidget, QObject):
+    """Used to create instances of simple XYZ Collection Points table."""
+    enabled_checkboxes_updated: Signal = Signal()
+
+    def __init__(
+            self,
+            columns: Optional[int] = 5,
+            rows: Optional[int] = 0,
+            horizontal_headers=None,
+            column_stretch: Optional[int] = 0,
+            object_name: Optional[str] = "xyz-table"
+    ) -> None:
+        # Check mutable input
+        if horizontal_headers is None:
+            horizontal_headers = ["Name", "X", "Y", "Z", "Enabled"]
+        # Initialize
+        super(XYZCollectionPointsTable, self).__init__(
+            columns=columns,
+            rows=rows,
+            horizontal_headers=horizontal_headers,
+            column_stretch=column_stretch,
+            object_name=object_name
+        )
+
+        self._enabled_checkboxes: list[QCheckBox] = []
+        self._row_counter: int = 0
+
+    def _checkbox_stage_changed(self) -> None:
+        self.enabled_checkboxes_updated.emit()
+
+    def _available_name_check(self) -> None:
+        """Checks for the next available point name."""
+        self._row_counter = 0
+        for row in range(self.rowCount() - 1):
+            self._row_counter += 1
+
+            if not f"point{self._row_counter}" == self.item(row, 0).text():
+                return None
+
+    def add_points(self) -> None:
+        """Adds a single collection point to the bottom of the list."""
+        # Get rows
+        row = self.rowCount()
+        # Increase the row count by 1
+        self._row_counter = row + 1
+        self.setRowCount(self._row_counter)
+
+        # Create the next name based on the row counter
+        dynamically_created_name = f"point{self._row_counter}"
+        # Check if the name already exists
+        if row > 0:
+            for existing_row in range(row):
+                if dynamically_created_name == self.item(existing_row, 0).text():
+                    temp_row_counter = self._row_counter
+                    self._available_name_check()
+                    dynamically_created_name = f"point{self._row_counter}"
+                    self._row_counter = temp_row_counter
+        # Create the name widget
+        name_widget = QTableWidgetItem(dynamically_created_name)
+        name_widget.setTextAlignment(Qt.AlignCenter)
+        # Set the item
+        self.setItem(row, 0, name_widget)
+
+        # Create the enabled checkbox
+        checkbox = QCheckBox()
+        # Set default state as checked
+        checkbox.setChecked(True)
+        # Add to table
+        self.setCellWidget(row, 4, checkbox)
+        # Add to the enabled checkboxes list
+        self.enabled_checkboxes.append(checkbox)
+        # Connect checkbox state changed
+        checkbox.stateChanged.connect(self._checkbox_stage_changed)
+
+    def enable_all_points(self) -> None:
+        """Sets the check state for all the checkboxes included in the list of checkboxes."""
+        for checkbox in self.enabled_checkboxes:
+            checkbox.setChecked(True)
+
+    def clear_table(self) -> None:
+        """Deletes all the rows of the table and clears the list of checkboxes."""
+        # Remove existing rows
+        super(XYZCollectionPointsTable, self).clear_table()
+        # Clear the list of checkboxes
+        self._enabled_checkboxes.clear()
+
+    def delete_selection(self) -> None:
+        """Removes the selected row from the table and the checkbox entry from the list of checkboxes."""
+        index = self.currentRow()
+        if index >= 0:
+            self.removeRow(index)
+            del self.enabled_checkboxes[index]
+
+    @property
+    def enabled_checkboxes(self) -> list[QCheckBox]:
+        return self._enabled_checkboxes

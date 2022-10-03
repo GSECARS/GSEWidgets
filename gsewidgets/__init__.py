@@ -24,5 +24,6 @@ from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.comboboxes import FullComboBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
+from gsewidgets.widgets.tables import XYZCollectionPointsTable
 
 __version__ = _version.get_versions()["version"]
