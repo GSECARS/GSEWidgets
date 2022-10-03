@@ -22,7 +22,8 @@ from qtpy.QtWidgets import QFrame
 from typing import Optional
 
 __all__ = {
-    "VerticalLine"
+    "VerticalLine",
+    "HorizontalLine"
 }
 
 
@@ -37,9 +38,18 @@ class Line(QFrame):
 
 
 class VerticalLine(Line):
-    """Used to created vertical lines."""
+    """Used to create vertical lines."""
     def __init__(self, object_name: Optional[str] = "vertical-line") -> None:
         super(VerticalLine, self).__init__(object_name=object_name)
 
         # Set vertical orientation
         self.setFrameShape(QFrame.Shape.VLine)
+
+
+class HorizontalLine(Line):
+    """Used to create horizontal lines."""
+    def __init__(self, object_name: Optional[str] = "horizontal-line") -> None:
+        super(HorizontalLine, self).__init__(object_name=object_name)
+
+        # Set horizontal orientation
+        self.setFrameShape(QFrame.Shape.HLine)

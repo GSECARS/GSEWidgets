@@ -23,6 +23,6 @@ from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryB
 from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.comboboxes import FullComboBox
-from gsewidgets.widgets.lines import VerticalLine
+from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 
 __version__ = _version.get_versions()["version"]
