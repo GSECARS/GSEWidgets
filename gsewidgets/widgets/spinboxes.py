@@ -18,14 +18,15 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from qtpy.QtCore import QSize, Qt
+from qtpy.QtCore import QSize, Qt, QObject, Signal
 from qtpy.QtGui import QWheelEvent
 from qtpy.QtWidgets import QDoubleSpinBox, QAbstractSpinBox
 from typing import Optional
 
 __all__ = {
     "NumericSpinBox",
-    "NoWheelNumericSpinBox"
+    "NoWheelNumericSpinBox",
+    "NumericDataSpinBoxModel"
 }
 
 
@@ -135,3 +136,67 @@ class NoWheelNumericSpinBox(NumericSpinBox):
         """Sets the behavior for the mouse wheel events."""
         # Ignore all events
         event.ignore()
+
+
+class NumericDataSpinBoxModel(QObject):
+    """
+    Simple numeric data model for use in the creation of a spinbox.
+    Emit the min_max and the value to update the numeric data spinbox model values.
+    """
+
+    spinbox_min_max_changed: Signal = Signal(float, float)
+    spinbox_value_changed: Signal = Signal(float)
+
+    def __init__(
+            self,
+            min_value: float,
+            max_value: float,
+            current_value: float,
+            incremental_step: float,
+            precision: Optional[int] = 0
+    ) -> None:
+        super(NumericDataSpinBoxModel, self).__init__()
+
+        self._min_value = min_value
+        self._max_value = max_value
+        self._current_value = current_value
+        self._incremental_step = incremental_step
+        self._precision = precision
+
+        # Connect signals
+        self.spinbox_min_max_changed.connect(self._update_min_max)
+        self.spinbox_value_changed.connect(self._update_current_value)
+
+    def _update_current_value(self, new_value: float) -> None:
+        """Updates the current value with the emitted value."""
+        self._current_value = new_value
+
+    def _update_min_max(self, new_min: float, new_max: float) -> None:
+        """Updates the min and max values with the emitted values."""
+        self._min_value = new_min
+        self._max_value = new_max
+
+    @property
+    def min_value(self) -> float:
+        """Returns the minimum value."""
+        return self._min_value
+
+    @property
+    def max_value(self) -> float:
+        """Returns the maximum value."""
+        return self._max_value
+
+    @property
+    def current_value(self) -> float:
+        """Returns the current value."""
+        return self._current_value
+
+    @property
+    def incremental_step(self) -> float:
+        """Returns the incremental step value."""
+        return self._incremental_step
+
+    @property
+    def precision(self) -> int:
+        """Returns the precision value."""
+        return self._precision
