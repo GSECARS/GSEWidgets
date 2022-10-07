@@ -222,9 +222,14 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         checkbox.stateChanged.connect(lambda: self.enabled_checkboxes_updated.emit())
 
     def enable_all_points(self) -> None:
-        """Sets the check state for all the checkboxes included in the list of checkboxes."""
+        """Sets the check state to True for all the checkboxes included in the list of checkboxes."""
         for checkbox in self.enabled_checkboxes:
             checkbox.setChecked(True)
+
+    def disable_all_points(self) -> None:
+        """Sets the check state to False for all the checkboxes included in the list of checkboxes."""
+        for checkbox in self.enabled_checkboxes:
+            checkbox.setChecked(False)
 
     def clear_table(self) -> None:
         """Deletes all the rows of the table and clears the list of checkboxes."""
