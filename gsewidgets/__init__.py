@@ -19,14 +19,14 @@
 # ----------------------------------------------------------------------
 
 from gsewidgets import _version
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
+from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton, ColorDialogButton
 from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox, NumericDataSpinBoxModel
-from gsewidgets.widgets.messageboxes import ErrorMessageBox
+from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
 from gsewidgets.widgets.comboboxes import FullComboBox
+from gsewidgets.widgets.checkboxes import CheckBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.tables import XYZCollectionPointsTable
-from gsewidgets.widgets.checkboxes import CheckBox
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
-from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
 
 __version__ = _version.get_versions()["version"]
