@@ -26,5 +26,6 @@ from gsewidgets.widgets.comboboxes import FullComboBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.tables import XYZCollectionPointsTable
 from gsewidgets.widgets.checkboxes import CheckBox
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
 
 __version__ = _version.get_versions()["version"]
