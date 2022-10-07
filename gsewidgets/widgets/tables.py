@@ -22,6 +22,8 @@ from qtpy.QtCore import QObject, Signal, Qt
 from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QCheckBox, QTableWidgetItem
 from typing import Optional
 
+from gsewidgets import NoWheelNumericSpinBox, NumericDataSpinBoxModel
+
 __all__ = {
     "XYZCollectionPointsTable"
 }
@@ -133,10 +135,8 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         )
 
         self._enabled_checkboxes: list[QCheckBox] = []
+        self._numeric_data_list: list[list[NumericDataSpinBoxModel]] = []
         self._row_counter: int = 0
-
-    def _checkbox_stage_changed(self) -> None:
-        self.enabled_checkboxes_updated.emit()
 
     def _available_name_check(self) -> None:
         """Checks for the next available point name."""
@@ -147,7 +147,12 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             if not f"point{self._row_counter}" == self.item(row, 0).text():
                 return None
 
-    def add_points(self) -> None:
+    def add_point(
+            self,
+            x: NumericDataSpinBoxModel,
+            y: NumericDataSpinBoxModel,
+            z: NumericDataSpinBoxModel,
+    ) -> None:
         """Adds a single collection point to the bottom of the list."""
         # Get rows
         row = self.rowCount()
@@ -171,6 +176,40 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         # Set the item
         self.setItem(row, 0, name_widget)
 
+        # Create the X,Y and Z widgets
+        # X widget
+        x_widget = NoWheelNumericSpinBox(
+            min_value=x.min_value,
+            max_value=x.max_value,
+            default_value=x.current_value,
+            incremental_step=x.incremental_step,
+            precision=x.precision
+        )
+        x_widget.valueChanged.connect(lambda: x.spinbox_value_changed.emit(x_widget.value()))
+        self.setCellWidget(row, 1, x_widget)
+        # Y widget
+        y_widget = NoWheelNumericSpinBox(
+            min_value=y.min_value,
+            max_value=y.max_value,
+            default_value=y.current_value,
+            incremental_step=y.incremental_step,
+            precision=y.precision
+        )
+        y_widget.valueChanged.connect(lambda: y.spinbox_value_changed.emit(y_widget.value()))
+        self.setCellWidget(row, 2, y_widget)
+        # Z widget
+        z_widget = NoWheelNumericSpinBox(
+            min_value=z.min_value,
+            max_value=z.max_value,
+            default_value=z.current_value,
+            incremental_step=z.incremental_step,
+            precision=z.precision
+        )
+        z_widget.valueChanged.connect(lambda: z.spinbox_value_changed.emit(z_widget.value()))
+        self.setCellWidget(row, 3, z_widget)
+        # Append to the numeric list
+        self.numeric_data_list.append([x, y, z])
+
         # Create the enabled checkbox
         checkbox = QCheckBox()
         # Set default state as checked
@@ -180,7 +219,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         # Add to the enabled checkboxes list
         self.enabled_checkboxes.append(checkbox)
         # Connect checkbox state changed
-        checkbox.stateChanged.connect(self._checkbox_stage_changed)
+        checkbox.stateChanged.connect(lambda: self.enabled_checkboxes_updated.emit())
 
     def enable_all_points(self) -> None:
         """Sets the check state for all the checkboxes included in the list of checkboxes."""
@@ -199,8 +238,13 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         index = self.currentRow()
         if index >= 0:
             self.removeRow(index)
-            del self.enabled_checkboxes[index]
+            self.enabled_checkboxes.pop(index)
+            self.numeric_data_list.pop(index)
 
     @property
     def enabled_checkboxes(self) -> list[QCheckBox]:
         return self._enabled_checkboxes
+
+    @property
+    def numeric_data_list(self) -> list[list[NumericDataSpinBoxModel]]:
+        return self._numeric_data_list
