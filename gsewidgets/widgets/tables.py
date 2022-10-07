@@ -19,10 +19,11 @@
 # ----------------------------------------------------------------------
 
 from qtpy.QtCore import QObject, Signal, Qt
-from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QCheckBox, QTableWidgetItem
+from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QCheckBox
 from typing import Optional
 
-from gsewidgets import NoWheelNumericSpinBox, NumericDataSpinBoxModel
+from gsewidgets.widgets.spinboxes import NoWheelNumericSpinBox, NumericDataSpinBoxModel
+from gsewidgets.widgets.inputboxes import FileNameInputBox
 
 __all__ = {
     "XYZCollectionPointsTable"
@@ -170,11 +171,11 @@ class XYZCollectionPointsTable(TableWidget, QObject):
                     self._available_name_check()
                     dynamically_created_name = f"point{self._row_counter}"
                     self._row_counter = temp_row_counter
-        # Create the name widget
-        name_widget = QTableWidgetItem(dynamically_created_name)
-        name_widget.setTextAlignment(Qt.AlignCenter)
+        # Create the file name widget
+        file_name_widget = FileNameInputBox()
+        file_name_widget.setText(dynamically_created_name)
         # Set the item
-        self.setItem(row, 0, name_widget)
+        self.setCellWidget(row, 0, file_name_widget)
 
         # Create the X,Y and Z widgets
         # X widget
