@@ -22,8 +22,12 @@ from qtpy.QtCore import QSize, Qt
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
+
 __all__ = {
     "InputBox",
+    "FileNameInputBox",
+    "FilePathInputBox"
 }
 
 
@@ -68,3 +72,45 @@ class InputBox(QLineEdit):
     def _return_pressed_event(self) -> None:
         """Clears the focus state."""
         self.clearFocus()
+
+
+class FileNameInputBox(InputBox):
+    """Creates an input box that validates its input for file names."""
+
+    def __init__(
+        self,
+        placeholder: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "filename-input-box",
+        invalid_characters: Optional[str] = '<>"/\\|?*#& '
+    ):
+        super(FileNameInputBox, self).__init__(
+            placeholder=placeholder,
+            size=size,
+            object_name=object_name,
+        )
+
+        # Set the file name event filter
+        self._file_name_filter = FileNameEventFilter(invalid_characters=invalid_characters)
+        self.installEventFilter(self._file_name_filter)
+
+
+class FilePathInputBox(InputBox):
+    """Creates a file path input box with a path validation. The path will be created if it doesn't exist."""
+
+    def __init__(
+        self,
+        placeholder: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "filepath-input-box",
+        invalid_characters: Optional[str] = '<>"|?*#& '
+    ):
+        super(FilePathInputBox, self).__init__(
+            placeholder=placeholder,
+            size=size,
+            object_name=object_name,
+        )
+
+        # Set the file path event filter
+        self._file_path_filter = FilePathEventFilter(invalid_characters=invalid_characters)
+        self.installEventFilter(self._file_path_filter)

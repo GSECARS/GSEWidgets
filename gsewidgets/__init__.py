@@ -27,6 +27,6 @@ from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.tables import XYZCollectionPointsTable
 from gsewidgets.widgets.checkboxes import CheckBox
 from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
-from gsewidgets.widgets.inputboxes import InputBox
+from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
 
 __version__ = _version.get_versions()["version"]
