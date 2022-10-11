@@ -18,12 +18,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from qtpy.QtCore import QObject, Signal, Qt
-from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QCheckBox
+from qtpy.QtCore import QObject, Signal, QSize, Qt
+from qtpy.QtGui import QColor
+from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QWidget, QVBoxLayout
 from typing import Optional
 
-from gsewidgets.widgets.spinboxes import NoWheelNumericSpinBox, NumericDataSpinBoxModel
 from gsewidgets.widgets.inputboxes import FileNameInputBox
+from gsewidgets.widgets.spinboxes import NoWheelNumericSpinBox, NumericDataSpinBoxModel
+from gsewidgets.widgets.checkboxes import ToggleCheckBox
 
 __all__ = {
     "XYZCollectionPointsTable"
@@ -121,7 +123,13 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             rows: Optional[int] = 0,
             horizontal_headers=None,
             column_stretch: Optional[int] = 0,
-            object_name: Optional[str] = "xyz-table"
+            object_name: Optional[str] = "xyz-table",
+            inactive_color: Optional[QColor] = QColor(206, 206, 206),
+            active_color: Optional[QColor] = QColor(45, 200, 20),
+            circle_color: Optional[QColor] = QColor(255, 255, 255),
+            size: Optional[QSize] = QSize(55, 35),
+            circle_radius_multiplier: Optional[float] = 0.25,
+            bar_size_multiplier: Optional[float] = 0.35,
     ) -> None:
         # Check mutable input
         if horizontal_headers is None:
@@ -135,18 +143,17 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             object_name=object_name
         )
 
-        self._enabled_checkboxes: list[QCheckBox] = []
+        self._inactive_color = inactive_color
+        self._active_color = active_color
+        self._circle_color = circle_color
+        self._size = size
+        self._circle_radius_multiplier = circle_radius_multiplier
+        self._bar_size_multiplier = bar_size_multiplier
+
+        self._enabled_checkboxes: list[ToggleCheckBox] = []
         self._numeric_data_list: list[list[NumericDataSpinBoxModel]] = []
-        self._row_counter: int = 0
-
-    def _available_name_check(self) -> None:
-        """Checks for the next available point name."""
-        self._row_counter = 0
-        for row in range(self.rowCount() - 1):
-            self._row_counter += 1
-
-            if not f"point{self._row_counter}" == self.item(row, 0).text():
-                return None
+        self._file_names_list: list[str] = []
+        self._name_counter: int = 1
 
     def add_point(
             self,
@@ -158,22 +165,21 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         # Get rows
         row = self.rowCount()
         # Increase the row count by 1
-        self._row_counter = row + 1
-        self.setRowCount(self._row_counter)
+        self.setRowCount(row + 1)
 
-        # Create the next name based on the row counter
-        dynamically_created_name = f"point{self._row_counter}"
         # Check if the name already exists
         if row > 0:
-            for existing_row in range(row):
-                if dynamically_created_name == self.item(existing_row, 0).text():
-                    temp_row_counter = self._row_counter
-                    self._available_name_check()
-                    dynamically_created_name = f"point{self._row_counter}"
-                    self._row_counter = temp_row_counter
+            for name in self._file_names_list:
+                if f"point_{self._name_counter}" == name:
+                    self._name_counter += 1
+        # Set the name based on the name counter without checking if there are missing names
+        dynamically_created_name = f"point_{self._name_counter}"
         # Create the file name widget
         file_name_widget = FileNameInputBox()
+        file_name_widget.setStyleSheet("background-color: transparent;")
         file_name_widget.setText(dynamically_created_name)
+        # Append to the file names list
+        self._file_names_list.append(dynamically_created_name)
         # Set the item
         self.setCellWidget(row, 0, file_name_widget)
 
@@ -186,6 +192,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             incremental_step=x.incremental_step,
             precision=x.precision
         )
+        x_widget.setStyleSheet("background-color: transparent;" "border: None;")
         x_widget.valueChanged.connect(lambda: x.spinbox_value_changed.emit(x_widget.value()))
         self.setCellWidget(row, 1, x_widget)
         # Y widget
@@ -196,6 +203,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             incremental_step=y.incremental_step,
             precision=y.precision
         )
+        y_widget.setStyleSheet("background-color: transparent;" "border: None;")
         y_widget.valueChanged.connect(lambda: y.spinbox_value_changed.emit(y_widget.value()))
         self.setCellWidget(row, 2, y_widget)
         # Z widget
@@ -206,17 +214,32 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             incremental_step=z.incremental_step,
             precision=z.precision
         )
+        z_widget.setStyleSheet("background-color: transparent;" "border: None;")
         z_widget.valueChanged.connect(lambda: z.spinbox_value_changed.emit(z_widget.value()))
         self.setCellWidget(row, 3, z_widget)
         # Append to the numeric list
         self.numeric_data_list.append([x, y, z])
 
         # Create the enabled checkbox
-        checkbox = QCheckBox()
+        checkbox = ToggleCheckBox(
+            inactive_color=self._inactive_color,
+            active_color=self._active_color,
+            circle_color=self._circle_color,
+            size=self._size,
+            circle_radius_multiplier=self._circle_radius_multiplier,
+            bar_size_multiplier=self._bar_size_multiplier,
+        )
         # Set default state as checked
         checkbox.setChecked(True)
+        # Create separate widget to center align the checkbox before adding to the table
+        checkbox_widget = QWidget()
+        checkbox_widget_layout = QVBoxLayout()
+        checkbox_widget_layout.setContentsMargins(0, 0, 0, 0)
+        checkbox_widget_layout.setSpacing(0)
+        checkbox_widget_layout.addWidget(checkbox, alignment=Qt.AlignCenter)
+        checkbox_widget.setLayout(checkbox_widget_layout)
         # Add to table
-        self.setCellWidget(row, 4, checkbox)
+        self.setCellWidget(row, 4, checkbox_widget)
         # Add to the enabled checkboxes list
         self.enabled_checkboxes.append(checkbox)
         # Connect checkbox state changed
@@ -233,22 +256,29 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             checkbox.setChecked(False)
 
     def clear_table(self) -> None:
-        """Deletes all the rows of the table and clears the list of checkboxes."""
+        """Deletes all the rows of the table and clears the lists of checkboxes, numeric data and file names."""
         # Remove existing rows
         super(XYZCollectionPointsTable, self).clear_table()
-        # Clear the list of checkboxes
+        # Clear the lists
         self._enabled_checkboxes.clear()
+        self.numeric_data_list.clear()
+        self._file_names_list.clear()
 
     def delete_selection(self) -> None:
-        """Removes the selected row from the table and the checkbox entry from the list of checkboxes."""
+        """
+        Removes the selected row from the table, the checkbox entry from the list of checkboxes,
+        the numeric data entry from the list of numeric data and the file name entry from
+        the file names list.
+        """
         index = self.currentRow()
         if index >= 0:
             self.removeRow(index)
             self.enabled_checkboxes.pop(index)
             self.numeric_data_list.pop(index)
+            self._file_names_list.pop(index)
 
     @property
-    def enabled_checkboxes(self) -> list[QCheckBox]:
+    def enabled_checkboxes(self) -> list[ToggleCheckBox]:
         return self._enabled_checkboxes
 
     @property
