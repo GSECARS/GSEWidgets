@@ -25,7 +25,7 @@ from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryB
 from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox, NumericDataSpinBoxModel
 from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
 from gsewidgets.widgets.comboboxes import FullComboBox
-from gsewidgets.widgets.checkboxes import CheckBox
+from gsewidgets.widgets.checkboxes import CheckBox, ToggleCheckBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.tables import XYZCollectionPointsTable
 
