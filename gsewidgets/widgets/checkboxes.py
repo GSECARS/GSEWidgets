@@ -144,12 +144,13 @@ class ToggleCheckBox(QCheckBox):
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(QPen(Qt.GlobalColor.transparent))
 
+        # Compute and draw the rectangle
         contents_rect = self.contentsRect()
         circle_radius = round(self._circle_radius_multiplier * contents_rect.height())
         bar_rectangle = QRectF(
             0, 0, contents_rect.width() - circle_radius, self._bar_size_multiplier * contents_rect.height()
         )
-        bar_rectangle.moveCenter(contents_rect.center())
+        bar_rectangle.moveCenter(contents_rect.center().toPointF())
 
         trail_bar = contents_rect.width() - 2 * circle_radius
         x_position = contents_rect.x() + circle_radius + trail_bar * self._circle_position

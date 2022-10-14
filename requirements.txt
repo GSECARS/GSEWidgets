@@ -18,5 +18,5 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-PyQt5==5.15.7
-qtpy==2.2.0
+PyQt6==6.4.0
+qtpy==2.2.1

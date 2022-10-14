@@ -23,9 +23,5 @@ from qtpy.QtWidgets import QApplication
 
 from gsewidgets.examples.controller import MainController
 
-# Enable high DPI support
-QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-
 # Application controller
 app = MainController()
