@@ -180,15 +180,12 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
         dialog = QFileDialog()
         # Set the file mode
         dialog.setFileMode(QFileDialog.ExistingFile)
-        # Get options
-        options = QFileDialog.Options()
         # Get the new path for the file
         new_file_path, _ = QFileDialog.getOpenFileName(
             parent=self,
             caption=self.caption,
             directory=self.target_directory,
             filter=self._filter,
-            options=options,
         )
 
         # Update the file path and emit the file_path_changed signal
