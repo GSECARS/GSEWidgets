@@ -82,7 +82,7 @@ class FileNameInputBox(InputBox):
         placeholder: Optional[str] = None,
         size: Optional[QSize] = None,
         object_name: Optional[str] = "filename-input-box",
-        invalid_characters: Optional[str] = '<>"/\\|?*#& '
+        invalid_characters: Optional[str] = '<>"/\\|?*#&$: '
     ):
         super(FileNameInputBox, self).__init__(
             placeholder=placeholder,
@@ -103,7 +103,7 @@ class FilePathInputBox(InputBox):
         placeholder: Optional[str] = None,
         size: Optional[QSize] = None,
         object_name: Optional[str] = "filepath-input-box",
-        invalid_characters: Optional[str] = '<>"|?*#& '
+        invalid_characters: Optional[str] = '<>"|?*#&$: '
     ):
         super(FilePathInputBox, self).__init__(
             placeholder=placeholder,

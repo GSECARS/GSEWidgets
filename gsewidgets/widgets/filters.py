@@ -34,7 +34,7 @@ class FileNameEventFilter(QObject):
 
     def __init__(
             self,
-            invalid_characters: Optional[str] = '<>"/\\|?*#& '
+            invalid_characters: Optional[str] = '<>"/\\|?*#&$: '
     ) -> None:
         super(FileNameEventFilter, self).__init__()
 
@@ -58,7 +58,7 @@ class FilePathEventFilter(FileNameEventFilter):
 
     def __init__(
             self,
-            invalid_characters: Optional[str] = '<>"|?*#& '
+            invalid_characters: Optional[str] = '<>"|?*#&$: '
     ) -> None:
         super(FilePathEventFilter, self).__init__(invalid_characters=invalid_characters)
 
