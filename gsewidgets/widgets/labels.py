@@ -18,16 +18,39 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from gsewidgets import _version
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
-from gsewidgets.widgets.messageboxes import ErrorMessageBox
-from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
-from gsewidgets.widgets.labels import Label
-from gsewidgets.widgets.buttons import FlatButton, FileBrowserButton, DirectoryBrowserButton, ColorDialogButton
-from gsewidgets.widgets.spinboxes import NumericSpinBox, NoWheelNumericSpinBox, NumericDataSpinBoxModel
-from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
-from gsewidgets.widgets.comboboxes import FullComboBox
-from gsewidgets.widgets.checkboxes import CheckBox, ToggleCheckBox
-from gsewidgets.widgets.tables import XYZCollectionPointsTable
+from qtpy.QtCore import QSize
+from qtpy.QtWidgets import QLabel
+from typing import Optional
 
-__version__ = _version.get_versions()["version"]
+__all__ = {"Label"}
+
+
+class Label(QLabel):
+    """Used to create instances of simple labels."""
+
+    def __init__(
+            self,
+            text: Optional[str] = None,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "label"
+    ) -> None:
+        super(Label, self).__init__()
+
+        self._text = text
+        self._size = size
+        self._object_name = object_name
+
+        # Run label configuration method
+        self._configure_label()
+
+    def _configure_label(self) -> None:
+        """Basic configuration for the label."""
+        # Set the text
+        if self._text is not None:
+            self.setText(self._text)
+        # Set the size
+        if self._size is not None:
+            self.setFixedSize(self._size)
+        # Set the object name
+        if self._object_name is not None:
+            self.setObjectName(self._object_name)
