@@ -190,7 +190,7 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
 
         # Update the file path and emit the file_path_changed signal
         if new_file_path != "":
-            self._file_path = new_file_path
+            self._file_path = Path(new_file_path).as_posix()
             self.file_path_changed.emit(True)
 
     @property
@@ -234,7 +234,7 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
         )
         # Update the directory path and emit the directory_changed signal
         if new_directory != "":
-            self._directory = new_directory
+            self._directory = Path(new_directory).as_posix()
             self.directory_changed.emit(True)
 
     @property
