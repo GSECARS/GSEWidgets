@@ -175,7 +175,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         # Set the name based on the name counter without checking if there are missing names
         dynamically_created_name = f"point_{self._name_counter}"
         # Create the file name widget
-        file_name_widget = FileNameInputBox()
+        file_name_widget = FileNameInputBox(object_name="table-input-box")
         file_name_widget.setStyleSheet("background-color: transparent;" "border: none;")
         file_name_widget.setText(dynamically_created_name)
         # Append to the file names list
@@ -190,7 +190,8 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             max_value=x.max_value,
             default_value=x.current_value,
             incremental_step=x.incremental_step,
-            precision=x.precision
+            precision=x.precision,
+            object_name="table-spinbox"
         )
         x_widget.setStyleSheet("background-color: transparent;" "border: none;")
         x_widget.valueChanged.connect(lambda: x.spinbox_value_changed.emit(x_widget.value()))
@@ -201,7 +202,8 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             max_value=y.max_value,
             default_value=y.current_value,
             incremental_step=y.incremental_step,
-            precision=y.precision
+            precision=y.precision,
+            object_name="table-spinbox"
         )
         y_widget.setStyleSheet("background-color: transparent;" "border: none;")
         y_widget.valueChanged.connect(lambda: y.spinbox_value_changed.emit(y_widget.value()))
@@ -212,7 +214,8 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             max_value=z.max_value,
             default_value=z.current_value,
             incremental_step=z.incremental_step,
-            precision=z.precision
+            precision=z.precision,
+            object_name="table-spinbox"
         )
         z_widget.setStyleSheet("background-color: transparent;" "border: None;")
         z_widget.valueChanged.connect(lambda: z.spinbox_value_changed.emit(z_widget.value()))
