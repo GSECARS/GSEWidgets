@@ -176,7 +176,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         dynamically_created_name = f"point_{self._name_counter}"
         # Create the file name widget
         file_name_widget = FileNameInputBox()
-        file_name_widget.setStyleSheet("background-color: transparent;")
+        file_name_widget.setStyleSheet("background-color: transparent;" "border: none;")
         file_name_widget.setText(dynamically_created_name)
         # Append to the file names list
         self._file_names_list.append(dynamically_created_name)
@@ -192,7 +192,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             incremental_step=x.incremental_step,
             precision=x.precision
         )
-        x_widget.setStyleSheet("background-color: transparent;" "border: None;")
+        x_widget.setStyleSheet("background-color: transparent;" "border: none;")
         x_widget.valueChanged.connect(lambda: x.spinbox_value_changed.emit(x_widget.value()))
         self.setCellWidget(row, 1, x_widget)
         # Y widget
@@ -203,7 +203,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             incremental_step=y.incremental_step,
             precision=y.precision
         )
-        y_widget.setStyleSheet("background-color: transparent;" "border: None;")
+        y_widget.setStyleSheet("background-color: transparent;" "border: none;")
         y_widget.valueChanged.connect(lambda: y.spinbox_value_changed.emit(y_widget.value()))
         self.setCellWidget(row, 2, y_widget)
         # Z widget
