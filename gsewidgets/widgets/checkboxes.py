@@ -19,28 +19,32 @@
 # ----------------------------------------------------------------------
 
 from qtpy.QtCore import (
-    Qt, QSize, Property, QPoint, QPointF, QRectF,
-    QEasingCurve, QPropertyAnimation, QSequentialAnimationGroup
+    Qt,
+    QSize,
+    Property,
+    QPoint,
+    QPointF,
+    QRectF,
+    QEasingCurve,
+    QPropertyAnimation,
+    QSequentialAnimationGroup,
 )
 from qtpy.QtGui import QColor, QBrush, QPaintEvent, QPen, QPainter
 from qtpy.QtWidgets import QCheckBox
 from typing import Optional
 
-__all__ = {
-    "CheckBox",
-    "ToggleCheckBox"
-}
+__all__ = {"CheckBox", "ToggleCheckBox"}
 
 
 class CheckBox(QCheckBox):
     """Used to create instances of simple checkboxes."""
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            right_orientation: Optional[bool] = False,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "simple-checkbox",
+        self,
+        text: Optional[str] = None,
+        right_orientation: Optional[bool] = False,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "simple-checkbox",
     ) -> None:
         super(CheckBox, self).__init__()
 
@@ -79,15 +83,16 @@ class CheckBox(QCheckBox):
 
 
 class ToggleCheckBox(QCheckBox):
+    """Used to create instances of toggle checkboxes."""
 
     def __init__(
-            self,
-            inactive_color: Optional[QColor] = QColor(206, 206, 206),
-            active_color: Optional[QColor] = QColor(45, 200, 20),
-            circle_color: Optional[QColor] = QColor(255, 255, 255),
-            size: Optional[QSize] = None,
-            circle_radius_multiplier: Optional[float] = 0.28,
-            bar_size_multiplier: Optional[float] = 0.35,
+        self,
+        inactive_color: Optional[QColor] = QColor(206, 206, 206),
+        active_color: Optional[QColor] = QColor(45, 200, 20),
+        circle_color: Optional[QColor] = QColor(255, 255, 255),
+        size: Optional[QSize] = None,
+        circle_radius_multiplier: Optional[float] = 0.28,
+        bar_size_multiplier: Optional[float] = 0.35,
     ) -> None:
         super(ToggleCheckBox, self).__init__()
 
@@ -148,12 +153,17 @@ class ToggleCheckBox(QCheckBox):
         contents_rect = self.contentsRect()
         circle_radius = round(self._circle_radius_multiplier * contents_rect.height())
         bar_rectangle = QRectF(
-            0, 0, contents_rect.width() - circle_radius, self._bar_size_multiplier * contents_rect.height()
+            0,
+            0,
+            contents_rect.width() - circle_radius,
+            self._bar_size_multiplier * contents_rect.height(),
         )
         bar_rectangle.moveCenter(contents_rect.center().toPointF())
 
         trail_bar = contents_rect.width() - 2 * circle_radius
-        x_position = contents_rect.x() + circle_radius + trail_bar * self._circle_position
+        x_position = (
+            contents_rect.x() + circle_radius + trail_bar * self._circle_position
+        )
         radius = bar_rectangle.height() / 2
 
         if self.isChecked():
@@ -172,7 +182,9 @@ class ToggleCheckBox(QCheckBox):
         # Draw the ellipse
         painter.drawEllipse(
             QPointF(x_position, bar_rectangle.center().y()),
-            circle_radius, circle_radius)
+            circle_radius,
+            circle_radius,
+        )
 
         painter.end()
 

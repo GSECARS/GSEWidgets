@@ -29,10 +29,10 @@ class Label(QLabel):
     """Used to create instances of simple labels."""
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "label"
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "label",
     ) -> None:
         super(Label, self).__init__()
 

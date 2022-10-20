@@ -28,7 +28,7 @@ __all__ = {
     "FlatButton",
     "FileBrowserButton",
     "DirectoryBrowserButton",
-    "ColorDialogButton"
+    "ColorDialogButton",
 }
 
 
@@ -36,11 +36,11 @@ class FlatButton(QPushButton):
     """Used to create instances of simple flat buttons"""
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "flat-button",
-            icon: Optional[QIcon] = None
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
     ) -> None:
         super(FlatButton, self).__init__()
 
@@ -83,14 +83,15 @@ class FlatButton(QPushButton):
 
 class AbstractBrowserButton(FlatButton):
     """Abstract button class to used for buttons that open QFileDialog widgets."""
+
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "flat-button",
-            icon: Optional[QIcon] = None,
-            caption: Optional[str] = "Select File",
-            invalid_characters: Optional[str] = '<>"\\|?*#& ',
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
+        caption: Optional[str] = "Select File",
+        invalid_characters: Optional[str] = '<>"\\|?*#& ',
     ) -> None:
         super(AbstractBrowserButton, self).__init__(
             text=text,
@@ -127,17 +128,18 @@ class AbstractBrowserButton(FlatButton):
 
 class FileBrowserButton(AbstractBrowserButton, QObject):
     """Used to create instances of flat button that open a QFileDialog to select a file."""
+
     file_path_changed: Signal = Signal(bool)
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "flat-button",
-            icon: Optional[QIcon] = None,
-            caption: Optional[str] = "Select File",
-            invalid_characters: Optional[str] = '<>"\\|?*#& ',
-            file_extensions: Optional[list[str]] = None,
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
+        caption: Optional[str] = "Select File",
+        invalid_characters: Optional[str] = '<>"\\|?*#& ',
+        file_extensions: Optional[list[str]] = None,
     ) -> None:
         super(FileBrowserButton, self).__init__(
             text=text,
@@ -200,16 +202,17 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
 
 class DirectoryBrowserButton(AbstractBrowserButton, QObject):
     """Used to create instances of flat button that open a QFileDialog to select a directory."""
+
     directory_changed: Signal = Signal(bool)
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "flat-button",
-            icon: Optional[QIcon] = None,
-            caption: Optional[str] = "Select File",
-            invalid_characters: Optional[str] = '<>"\\|?*#& ',
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
+        caption: Optional[str] = "Select File",
+        invalid_characters: Optional[str] = '<>"\\|?*#& ',
     ) -> None:
         super(DirectoryBrowserButton, self).__init__(
             text=text,
@@ -228,9 +231,7 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
         self.clearFocus()
         # Open file dialog and get the directory
         new_directory = QFileDialog.getExistingDirectory(
-            parent=self,
-            caption=self.caption,
-            directory=self.target_directory
+            parent=self, caption=self.caption, directory=self.target_directory
         )
         # Update the directory path and emit the directory_changed signal
         if new_directory != "":
@@ -247,19 +248,17 @@ class ColorDialogButton(FlatButton, QObject):
     Used to create instances of flat button that open a QColorDialog to select a color.
     The background color of the button will change to reflect the selected color.
     """
+
     color_changed: Signal = Signal(bool)
 
     def __init__(
-            self,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "color-button",
-            default_color: Optional[QColor] = None,
+        self,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "color-button",
+        default_color: Optional[QColor] = None,
     ) -> None:
         super(ColorDialogButton, self).__init__(
-            text=None,
-            size=size,
-            object_name=object_name,
-            icon=None
+            text=None, size=size, object_name=object_name, icon=None
         )
 
         self._color = default_color

@@ -23,25 +23,21 @@ from qtpy.QtGui import QWheelEvent
 from qtpy.QtWidgets import QDoubleSpinBox, QAbstractSpinBox
 from typing import Optional
 
-__all__ = {
-    "NumericSpinBox",
-    "NoWheelNumericSpinBox",
-    "NumericDataSpinBoxModel"
-}
+__all__ = {"NumericSpinBox", "NoWheelNumericSpinBox", "NumericDataSpinBoxModel"}
 
 
 class NumericSpinBox(QDoubleSpinBox):
     """Used to create instances of numeric only spin boxes, without arrow buttons."""
 
     def __init__(
-            self,
-            min_value: float,
-            max_value: float,
-            default_value: float,
-            incremental_step: float,
-            precision: Optional[int] = 0,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "numeric-spinbox"
+        self,
+        min_value: float,
+        max_value: float,
+        default_value: float,
+        incremental_step: float,
+        precision: Optional[int] = 0,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "numeric-spinbox",
     ) -> None:
         super(NumericSpinBox, self).__init__()
 
@@ -113,14 +109,14 @@ class NoWheelNumericSpinBox(NumericSpinBox):
     """Used to create instances of NumericSpinBox that ignore all mouse wheel events."""
 
     def __init__(
-            self,
-            min_value: float,
-            max_value: float,
-            default_value: float,
-            incremental_step: float,
-            precision: Optional[int] = 0,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "numeric-spinbox"
+        self,
+        min_value: float,
+        max_value: float,
+        default_value: float,
+        incremental_step: float,
+        precision: Optional[int] = 0,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "numeric-spinbox",
     ):
         super(NoWheelNumericSpinBox, self).__init__(
             min_value=min_value,
@@ -129,7 +125,7 @@ class NoWheelNumericSpinBox(NumericSpinBox):
             incremental_step=incremental_step,
             precision=precision,
             size=size,
-            object_name=object_name
+            object_name=object_name,
         )
 
     def wheelEvent(self, event: QWheelEvent) -> None:
@@ -148,12 +144,12 @@ class NumericDataSpinBoxModel(QObject):
     spinbox_value_changed: Signal = Signal(float)
 
     def __init__(
-            self,
-            min_value: float,
-            max_value: float,
-            current_value: float,
-            incremental_step: float,
-            precision: Optional[int] = 0
+        self,
+        min_value: float,
+        max_value: float,
+        current_value: float,
+        incremental_step: float,
+        precision: Optional[int] = 0,
     ) -> None:
         super(NumericDataSpinBoxModel, self).__init__()
 

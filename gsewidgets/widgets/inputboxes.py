@@ -24,11 +24,7 @@ from typing import Optional
 
 from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
 
-__all__ = {
-    "InputBox",
-    "FileNameInputBox",
-    "FilePathInputBox"
-}
+__all__ = {"InputBox", "FileNameInputBox", "FilePathInputBox"}
 
 
 class InputBox(QLineEdit):
@@ -38,7 +34,7 @@ class InputBox(QLineEdit):
         self,
         placeholder: Optional[str] = None,
         size: Optional[QSize] = None,
-        object_name: Optional[str] = "input-box"
+        object_name: Optional[str] = "input-box",
     ) -> None:
         super(InputBox, self).__init__()
 
@@ -82,7 +78,7 @@ class FileNameInputBox(InputBox):
         placeholder: Optional[str] = None,
         size: Optional[QSize] = None,
         object_name: Optional[str] = "filename-input-box",
-        invalid_characters: Optional[str] = '<>"/\\|?*#&$: '
+        invalid_characters: Optional[str] = '<>"/\\|?*#&$: ',
     ):
         super(FileNameInputBox, self).__init__(
             placeholder=placeholder,
@@ -91,7 +87,9 @@ class FileNameInputBox(InputBox):
         )
 
         # Set the file name event filter
-        self._file_name_filter = FileNameEventFilter(invalid_characters=invalid_characters)
+        self._file_name_filter = FileNameEventFilter(
+            invalid_characters=invalid_characters
+        )
         self.installEventFilter(self._file_name_filter)
 
 
@@ -103,7 +101,7 @@ class FilePathInputBox(InputBox):
         placeholder: Optional[str] = None,
         size: Optional[QSize] = None,
         object_name: Optional[str] = "filepath-input-box",
-        invalid_characters: Optional[str] = '<>"|?*#&$: '
+        invalid_characters: Optional[str] = '<>"|?*#&$: ',
     ):
         super(FilePathInputBox, self).__init__(
             placeholder=placeholder,
@@ -112,5 +110,7 @@ class FilePathInputBox(InputBox):
         )
 
         # Set the file path event filter
-        self._file_path_filter = FilePathEventFilter(invalid_characters=invalid_characters)
+        self._file_path_filter = FilePathEventFilter(
+            invalid_characters=invalid_characters
+        )
         self.installEventFilter(self._file_path_filter)

@@ -23,19 +23,13 @@ from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = {
-    "FileNameEventFilter",
-    "FilePathEventFilter"
-}
+__all__ = {"FileNameEventFilter", "FilePathEventFilter"}
 
 
 class FileNameEventFilter(QObject):
     """Used to create file name focus out event filters to replace invalid characters with underscores."""
 
-    def __init__(
-            self,
-            invalid_characters: Optional[str] = '<>"/\\|?*#&$: '
-    ) -> None:
+    def __init__(self, invalid_characters: Optional[str] = '<>"/\\|?*#&$: ') -> None:
         super(FileNameEventFilter, self).__init__()
 
         self._invalid_characters = invalid_characters
@@ -56,10 +50,7 @@ class FileNameEventFilter(QObject):
 class FilePathEventFilter(FileNameEventFilter):
     """Used to create file path focus out event filters to replace invalid characters with underscores."""
 
-    def __init__(
-            self,
-            invalid_characters: Optional[str] = '<>"|?*#&$: '
-    ) -> None:
+    def __init__(self, invalid_characters: Optional[str] = '<>"|?*#&$: ') -> None:
         super(FilePathEventFilter, self).__init__(invalid_characters=invalid_characters)
 
     def eventFilter(self, widget: QLineEdit, event: QEvent) -> bool:
@@ -74,4 +65,3 @@ class FilePathEventFilter(FileNameEventFilter):
             # Replace the text with a PosixPath
             widget.setText(f"{file_path.as_posix()}/")
         return False
-

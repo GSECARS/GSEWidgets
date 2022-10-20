@@ -30,9 +30,7 @@ class FullComboBox(QComboBox):
     """Used to create instanced of combo boxes that open the popup menu by click anywhere on the widget."""
 
     def __init__(
-            self,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "full-combobox"
+        self, size: Optional[QSize] = None, object_name: Optional[str] = "full-combobox"
     ) -> None:
         super(FullComboBox, self).__init__()
 

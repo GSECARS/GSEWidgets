@@ -22,5 +22,5 @@ from gsewidgets import __version__
 from gsewidgets.examples import app
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(version=__version__)

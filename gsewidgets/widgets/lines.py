@@ -21,14 +21,10 @@
 from qtpy.QtWidgets import QFrame
 from typing import Optional
 
-__all__ = {
-    "VerticalLine",
-    "HorizontalLine"
-}
+__all__ = {"VerticalLine", "HorizontalLine"}
 
 
 class Line(QFrame):
-
     def __init__(self, object_name: Optional[str] = None) -> None:
         super(Line, self).__init__()
 
@@ -39,6 +35,7 @@ class Line(QFrame):
 
 class VerticalLine(Line):
     """Used to create vertical lines."""
+
     def __init__(self, object_name: Optional[str] = "vertical-line") -> None:
         super(VerticalLine, self).__init__(object_name=object_name)
 
@@ -48,6 +45,7 @@ class VerticalLine(Line):
 
 class HorizontalLine(Line):
     """Used to create horizontal lines."""
+
     def __init__(self, object_name: Optional[str] = "horizontal-line") -> None:
         super(HorizontalLine, self).__init__(object_name=object_name)
 

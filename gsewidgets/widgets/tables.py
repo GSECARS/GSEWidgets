@@ -20,28 +20,32 @@
 
 from qtpy.QtCore import QObject, Signal, QSize, Qt
 from qtpy.QtGui import QColor
-from qtpy.QtWidgets import QTableWidget, QAbstractItemView, QHeaderView, QWidget, QVBoxLayout
+from qtpy.QtWidgets import (
+    QTableWidget,
+    QAbstractItemView,
+    QHeaderView,
+    QWidget,
+    QVBoxLayout,
+)
 from typing import Optional
 
 from gsewidgets.widgets.inputboxes import FileNameInputBox
 from gsewidgets.widgets.spinboxes import NoWheelNumericSpinBox, NumericDataSpinBoxModel
 from gsewidgets.widgets.checkboxes import ToggleCheckBox
 
-__all__ = {
-    "XYZCollectionPointsTable"
-}
+__all__ = {"XYZCollectionPointsTable"}
 
 
 class TableWidget(QTableWidget):
     """Used to create instances of simple table templates."""
 
     def __init__(
-            self,
-            columns: Optional[int] = None,
-            rows: Optional[int] = None,
-            horizontal_headers: Optional[list[str]] = None,
-            column_stretch: Optional[int] = None,
-            object_name: Optional[str] = None
+        self,
+        columns: Optional[int] = None,
+        rows: Optional[int] = None,
+        horizontal_headers: Optional[list[str]] = None,
+        column_stretch: Optional[int] = None,
+        object_name: Optional[str] = None,
     ) -> None:
         super(TableWidget, self).__init__()
 
@@ -115,21 +119,22 @@ class TableWidget(QTableWidget):
 
 class XYZCollectionPointsTable(TableWidget, QObject):
     """Used to create instances of simple XYZ Collection Points table."""
+
     enabled_checkboxes_updated: Signal = Signal()
 
     def __init__(
-            self,
-            columns: Optional[int] = 5,
-            rows: Optional[int] = 0,
-            horizontal_headers=None,
-            column_stretch: Optional[int] = 0,
-            object_name: Optional[str] = "xyz-table",
-            inactive_color: Optional[QColor] = QColor(206, 206, 206),
-            active_color: Optional[QColor] = QColor(45, 200, 20),
-            circle_color: Optional[QColor] = QColor(255, 255, 255),
-            size: Optional[QSize] = QSize(55, 35),
-            circle_radius_multiplier: Optional[float] = 0.25,
-            bar_size_multiplier: Optional[float] = 0.35,
+        self,
+        columns: Optional[int] = 5,
+        rows: Optional[int] = 0,
+        horizontal_headers=None,
+        column_stretch: Optional[int] = 0,
+        object_name: Optional[str] = "xyz-table",
+        inactive_color: Optional[QColor] = QColor(206, 206, 206),
+        active_color: Optional[QColor] = QColor(45, 200, 20),
+        circle_color: Optional[QColor] = QColor(255, 255, 255),
+        size: Optional[QSize] = QSize(55, 35),
+        circle_radius_multiplier: Optional[float] = 0.25,
+        bar_size_multiplier: Optional[float] = 0.35,
     ) -> None:
         # Check mutable input
         if horizontal_headers is None:
@@ -140,7 +145,7 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             rows=rows,
             horizontal_headers=horizontal_headers,
             column_stretch=column_stretch,
-            object_name=object_name
+            object_name=object_name,
         )
 
         self._inactive_color = inactive_color
@@ -156,10 +161,10 @@ class XYZCollectionPointsTable(TableWidget, QObject):
         self._name_counter: int = 1
 
     def add_point(
-            self,
-            x: NumericDataSpinBoxModel,
-            y: NumericDataSpinBoxModel,
-            z: NumericDataSpinBoxModel,
+        self,
+        x: NumericDataSpinBoxModel,
+        y: NumericDataSpinBoxModel,
+        z: NumericDataSpinBoxModel,
     ) -> None:
         """Adds a single collection point to the bottom of the list."""
         # Get rows
@@ -191,10 +196,12 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             default_value=x.current_value,
             incremental_step=x.incremental_step,
             precision=x.precision,
-            object_name="table-spinbox"
+            object_name="table-spinbox",
         )
         x_widget.setStyleSheet("background-color: transparent;" "border: none;")
-        x_widget.valueChanged.connect(lambda: x.spinbox_value_changed.emit(x_widget.value()))
+        x_widget.valueChanged.connect(
+            lambda: x.spinbox_value_changed.emit(x_widget.value())
+        )
         self.setCellWidget(row, 1, x_widget)
         # Y widget
         y_widget = NoWheelNumericSpinBox(
@@ -203,10 +210,12 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             default_value=y.current_value,
             incremental_step=y.incremental_step,
             precision=y.precision,
-            object_name="table-spinbox"
+            object_name="table-spinbox",
         )
         y_widget.setStyleSheet("background-color: transparent;" "border: none;")
-        y_widget.valueChanged.connect(lambda: y.spinbox_value_changed.emit(y_widget.value()))
+        y_widget.valueChanged.connect(
+            lambda: y.spinbox_value_changed.emit(y_widget.value())
+        )
         self.setCellWidget(row, 2, y_widget)
         # Z widget
         z_widget = NoWheelNumericSpinBox(
@@ -215,10 +224,12 @@ class XYZCollectionPointsTable(TableWidget, QObject):
             default_value=z.current_value,
             incremental_step=z.incremental_step,
             precision=z.precision,
-            object_name="table-spinbox"
+            object_name="table-spinbox",
         )
         z_widget.setStyleSheet("background-color: transparent;" "border: None;")
-        z_widget.valueChanged.connect(lambda: z.spinbox_value_changed.emit(z_widget.value()))
+        z_widget.valueChanged.connect(
+            lambda: z.spinbox_value_changed.emit(z_widget.value())
+        )
         self.setCellWidget(row, 3, z_widget)
         # Append to the numeric list
         self.numeric_data_list.append([x, y, z])
