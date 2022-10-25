@@ -18,24 +18,25 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from qtpy.QtWidgets import QMainWindow
-
-from gsewidgets.examples.widget import ExampleWidget
-from gsewidgets.examples.model import PathModel
+from dataclasses import dataclass, field
+from pathlib import Path
 
 
-class MainWidget(QMainWindow):
-    def __init__(self, model: PathModel) -> None:
-        """Initialize the main window."""
-        super(MainWidget, self).__init__()
+@dataclass(frozen=True, slots=True)
+class PathModel:
+    """Model that creates the paths for the assets directories."""
 
-        # Set the central widget
-        self.example_widget = ExampleWidget(model=model)
-        self.setCentralWidget(self.example_widget)
+    _assets_path: str = field(init=False, compare=False, repr=False)
+    _qss_path: str = field(init=False, compare=False, repr=False)
 
-    def display_window(self, version: str) -> None:
-        """Set the title of the main window and display to screen."""
-        # Set window title based on current version
-        self.setWindowTitle(f"GSEWidgets {version}")
-        # Display the window
-        self.showNormal()
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "_assets_path",
+            Path(Path.cwd(), "gsewidgets/examples/assets").as_posix(),
+        )
+        object.__setattr__(self, "_qss_path", Path(self._assets_path, "qss").as_posix())
+
+    @property
+    def qss_path(self) -> str:
+        return self._qss_path

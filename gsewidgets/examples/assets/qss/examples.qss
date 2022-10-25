@@ -1,0 +1,190 @@
+/* ---------------------------------------------------------------------
+* GSEWidgets - Collection of gui widgets to be used in GSE software.
+* Author: Christofanis Skordas (skordasc@uchicago.edu)
+* Copyright (C) 2022  GSECARS, The University of Chicago, USA
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
+* ----------------------------------------------------------------------
+*/
+
+/* EXAMPLE FRAME */
+#example-frame {
+    background-color: #263238;
+    margin: 0;
+}
+
+/* EXAMPLE LINES */
+#vertical-line, #horizontal-line {
+    color: #2e6ca4;
+}
+
+/* EXAMPLE BUTTONS */
+#flat-button {
+    background-color: #2e6ca4;
+    border: 2px solid #2e6ca4;
+    border-radius: 4px;
+    color: #323336;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+}
+#flat-button:hover, #flat-button:focus, #flat-button:pressed {
+    background-color: #256094;
+    border-color: #256094;
+}
+
+#color-button {
+    border: 2px solid transparent;
+    border-radius: 4px;
+}
+#color-button:hover {
+    border-color: #373f3e;
+}
+
+/* EXAMPLE CHECKBOXES */
+#simple-checkbox {
+    color: #d8dcdb;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* EXAMPLE LABELS */
+#title-label {
+    color: #d8dcdb;
+    font-size: 16px;
+}
+
+#label {
+    color: #b6b7b7;
+    font-size: 11px;
+}
+
+/* EXAMPLE COMBO BOXES */
+#full-combobox {
+    background-color: #2e6ca4;
+    border: 2px solid #2e6ca4;
+    border-radius: 4px;
+    color: #323336;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#full-combobox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 0;
+
+    background-color: transparent;
+}
+
+#full-combobox QAbstractItemView {
+    background-color: #2e6ca4;
+    border: 2px solid #2e6ca4;
+    color: #323336;
+
+    outline: 0px;
+
+    selection-background-color: #373f3e;
+    selection-color: #323336;
+}
+
+/* EXAMPLE SPIN BOXES */
+#numeric-spinbox {
+    background-color: #2e6ca4;
+    border: 2px solid #2e6ca4;
+    border-radius: 4px;
+    color: #323336;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#numeric-spinbox:focus {
+    border: 2px solid #373f3e;
+}
+
+#input-box, #filename-input-box, #filepath-input-box {
+    background-color: #d7dde0;
+    border: 2px solid #d7dde0;
+    border-radius: 4px;
+    color: #323336;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#input-box:focus, #filename-input-box:focus, #filepath-input-box:focus {
+    border: 2px solid #2e6ca4;
+}
+
+/* EXAMPLE TABLES */
+
+#xyz-table {
+    background-color: #1e272c;
+    alternate-background-color: #263238;
+    border: none;
+    text-align: center;
+    selection-background-color: #637480;
+    selection-color: #d5dde3;
+}
+
+#xyz-table QHeaderView::section {
+    background-color: #2e6ca4;
+    border: none;
+    color: #323336;
+    font-family: "Calibri";
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#xyz-table QHeaderView::section:disabled {
+    background-color: #2e6ca4;
+    color: #323336;
+}
+
+#xyz-table QScrollBar:vertical {
+	border: none;
+    background: #263238;
+    width: 14px;
+    margin: 0;
+	border-radius: 0px;
+}
+
+#xyz-table QScrollBar::handle:vertical {
+	background-color: #256094;
+	min-height: 30px;
+	border-radius: 7px;
+}
+
+#xyz-table QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+	border: none;
+	height: 0;
+}
+
+#xyz-table QScrollBar::handle:vertical:hover, QScrollBar::add-line:vertical:hover, QScrollBar::sub-line:vertical:hover {
+	background-color: #2e6ca4;
+}
+
+#xyz-table QScrollBar::handle:vertical:pressed, QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
+	background-color: #256094;
+}
+
+#xyz-table QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical, QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+#table-input-box, #table-spinbox {
+    color: #b6b7b7;
+}

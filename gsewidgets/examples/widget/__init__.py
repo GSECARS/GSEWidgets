@@ -18,4 +18,5 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+from gsewidgets.examples.widget.example_widget import ExampleWidget
 from gsewidgets.examples.widget.main_widget import MainWidget
