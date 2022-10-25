@@ -18,23 +18,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+import versioneer
+from setuptools import setup
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
-
-# Tests
-tests/
+if __name__ == "__main__":
+    setup(version=versioneer.get_version(), cmdclass=versioneer.get_cmdclass())

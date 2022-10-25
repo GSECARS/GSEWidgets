@@ -18,23 +18,36 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from qtpy.QtWidgets import QFrame
+from typing import Optional
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
+__all__ = {"VerticalLine", "HorizontalLine"}
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
 
-# Tests
-tests/
+class Line(QFrame):
+    def __init__(self, object_name: Optional[str] = None) -> None:
+        super(Line, self).__init__()
+
+        # Set the object name
+        if object_name is not None:
+            self.setObjectName(object_name)
+
+
+class VerticalLine(Line):
+    """Used to create vertical lines."""
+
+    def __init__(self, object_name: Optional[str] = "vertical-line") -> None:
+        super(VerticalLine, self).__init__(object_name=object_name)
+
+        # Set vertical orientation
+        self.setFrameShape(QFrame.Shape.VLine)
+
+
+class HorizontalLine(Line):
+    """Used to create horizontal lines."""
+
+    def __init__(self, object_name: Optional[str] = "horizontal-line") -> None:
+        super(HorizontalLine, self).__init__(object_name=object_name)
+
+        # Set horizontal orientation
+        self.setFrameShape(QFrame.Shape.HLine)

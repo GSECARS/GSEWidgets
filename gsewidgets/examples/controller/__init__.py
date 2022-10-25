@@ -18,23 +18,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
-
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
-
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
-
-# Tests
-tests/
+from gsewidgets.examples.controller.main_controller import MainController

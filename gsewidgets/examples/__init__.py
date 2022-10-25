@@ -18,23 +18,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QApplication
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
+from gsewidgets.examples.controller import MainController
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
-
-# Tests
-tests/
+# Application controller
+app = MainController()

@@ -18,23 +18,21 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from qtpy.QtWidgets import QMessageBox
+from typing import Optional
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
+__all__ = {"ErrorMessageBox"}
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
 
-# Tests
-tests/
+class ErrorMessageBox(QMessageBox):
+    """Generic QMessageBox for creating custom error message boxes."""
+
+    def __init__(self, message: str, title: Optional[str] = None) -> None:
+        super(ErrorMessageBox, self).__init__()
+
+        # Check the error title
+        if title is None:
+            title = "Error"
+
+        # Set the critical message box values
+        self.critical(self, title, message, QMessageBox.Ok)

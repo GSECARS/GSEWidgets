@@ -18,23 +18,39 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from qtpy.QtCore import QSize
+from qtpy.QtWidgets import QLabel
+from typing import Optional
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
+__all__ = {"Label"}
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
 
-# Tests
-tests/
+class Label(QLabel):
+    """Used to create instances of simple labels."""
+
+    def __init__(
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "label",
+    ) -> None:
+        super(Label, self).__init__()
+
+        self._text = text
+        self._size = size
+        self._object_name = object_name
+
+        # Run label configuration method
+        self._configure_label()
+
+    def _configure_label(self) -> None:
+        """Basic configuration for the label."""
+        # Set the text
+        if self._text is not None:
+            self.setText(self._text)
+        # Set the size
+        if self._size is not None:
+            self.setFixedSize(self._size)
+        # Set the object name
+        if self._object_name is not None:
+            self.setObjectName(self._object_name)

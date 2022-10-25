@@ -18,23 +18,24 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from qtpy.QtWidgets import QMainWindow
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
+from gsewidgets.examples.widget import ExampleWidget
+from gsewidgets.examples.model import PathModel
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
 
-# Tests
-tests/
+class MainWidget(QMainWindow):
+    def __init__(self, model: PathModel) -> None:
+        """Initialize the main window."""
+        super(MainWidget, self).__init__()
+
+        # Set the central widget
+        self.example_widget = ExampleWidget(model=model)
+        self.setCentralWidget(self.example_widget)
+
+    def display_window(self, version: str) -> None:
+        """Set the title of the main window and display to screen."""
+        # Set window title based on current version
+        self.setWindowTitle(f"GSEWidgets {version}")
+        # Display the window
+        self.showNormal()

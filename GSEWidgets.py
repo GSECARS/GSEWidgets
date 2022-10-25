@@ -18,23 +18,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from gsewidgets import __version__
+from gsewidgets.examples import app
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
-
-# Tests
-tests/
+if __name__ == "__main__":
+    app.run(version=__version__)

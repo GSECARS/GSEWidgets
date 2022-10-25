@@ -18,23 +18,25 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# IDE-specific
-.idea/
+from dataclasses import dataclass, field
+from pathlib import Path
 
-# Python-specific
-__pycache__/
-*.py[cod]
-*$py.class
-.dmypy.json
 
-# Build
-build/
-dist/
-*.manifest
-*.spec
-*egg-info
-pypi_build.sh
-pyinstaller_build.sh
+@dataclass(frozen=True, slots=True)
+class PathModel:
+    """Model that creates the paths for the assets directories."""
 
-# Tests
-tests/
+    _assets_path: str = field(init=False, compare=False, repr=False)
+    _qss_path: str = field(init=False, compare=False, repr=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "_assets_path",
+            Path(Path.cwd(), "gsewidgets/examples/assets").as_posix(),
+        )
+        object.__setattr__(self, "_qss_path", Path(self._assets_path, "qss").as_posix())
+
+    @property
+    def qss_path(self) -> str:
+        return self._qss_path
