@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2023  GSECARS, The University of Chicago, USA
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ from gsewidgets import _version
 from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
-from gsewidgets.widgets.labels import Label
+from gsewidgets.widgets.labels import Label, StreamViewer
 from gsewidgets.widgets.buttons import (
     FlatButton,
     FileBrowserButton,
@@ -34,7 +34,7 @@ from gsewidgets.widgets.spinboxes import (
     NoWheelNumericSpinBox,
     NumericDataSpinBoxModel,
 )
-from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox
+from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox, URIInputBox
 from gsewidgets.widgets.comboboxes import FullComboBox
 from gsewidgets.widgets.checkboxes import CheckBox, ToggleCheckBox
 from gsewidgets.widgets.tables import XYZCollectionPointsTable

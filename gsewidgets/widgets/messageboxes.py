@@ -2,7 +2,7 @@
 # ----------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2023  GSECARS, The University of Chicago, USA
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
