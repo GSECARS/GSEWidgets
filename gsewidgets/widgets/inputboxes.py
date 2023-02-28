@@ -22,9 +22,14 @@ from qtpy.QtCore import QSize, Qt
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter
 
-__all__ = {"InputBox", "FileNameInputBox", "FilePathInputBox"}
+__all__ = {
+    "InputBox",
+    "FileNameInputBox",
+    "FilePathInputBox",
+    "URIInputBox"
+}
 
 
 class InputBox(QLineEdit):
@@ -114,3 +119,28 @@ class FilePathInputBox(InputBox):
             invalid_characters=invalid_characters
         )
         self.installEventFilter(self._file_path_filter)
+
+
+class URIInputBox(InputBox):
+    """
+    Creates a URI input box with https/http validation. The text will be removed if the
+    correct scheme is not followed.
+    """
+
+    def __init__(
+            self,
+            placeholder: Optional[str] = "URI",
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "uri-input-box",
+            validate_uri: Optional[bool] = True,
+    ) -> None:
+        super(URIInputBox, self).__init__(
+            placeholder=placeholder,
+            size=size,
+            object_name=object_name,
+        )
+
+        if validate_uri:
+            # Set the URI event filter
+            self._uri_filter = URIParseEventFilter()
+            self.installEventFilter(self._uri_filter)

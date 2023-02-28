@@ -59,6 +59,7 @@ pip install .
 - InputBox
 - FilePathInputBox
 - FileNameInputBox
+- URIInputBox
 - FullComboBox
 - CheckBox
 - ToggleCheckBox

@@ -37,6 +37,7 @@ from gsewidgets import (
     InputBox,
     FilePathInputBox,
     FileNameInputBox,
+    URIInputBox,
     CheckBox,
     ToggleCheckBox,
     XYZCollectionPointsTable,
@@ -87,6 +88,7 @@ class ExampleWidget(QFrame):
         self.input_normal = InputBox(placeholder="Normal Input")
         self.input_filename = FileNameInputBox(placeholder="Filename Input")
         self.input_filepath = FilePathInputBox(placeholder="Filepath Input")
+        self.input_uri = URIInputBox(placeholder="https://google.com")
 
         self.xyz_table = XYZCollectionPointsTable()
 
@@ -156,6 +158,7 @@ class ExampleWidget(QFrame):
         spin_layout.addWidget(self.input_filename, 1, 8, 1, 1)
         spin_layout.addWidget(VerticalLine(), 1, 9, 1, 1)
         spin_layout.addWidget(self.input_filepath, 1, 10, 1, 1)
+        spin_layout.addWidget(self.input_uri, 1, 11, 1, 1)
 
         # Example xyz table layout
         table_layout = QGridLayout()

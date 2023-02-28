@@ -19,11 +19,12 @@
 # ----------------------------------------------------------------------
 
 from pathlib import Path
+from urllib.parse import urlparse
 from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = {"FileNameEventFilter", "FilePathEventFilter"}
+__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter"}
 
 
 class FileNameEventFilter(QObject):
@@ -64,4 +65,24 @@ class FilePathEventFilter(FileNameEventFilter):
                 file_path.mkdir(parents=True)
             # Replace the text with a PosixPath
             widget.setText(f"{file_path.as_posix()}/")
+        return False
+
+
+class URIParseEventFilter(QObject):
+    """Used to parse URI on focus out events."""
+
+    def __init__(self) -> None:
+        super(URIParseEventFilter, self).__init__()
+
+    def eventFilter(self, widget: QLineEdit, event: QEvent) -> bool:
+        """Filter URI on focus out events."""
+        if event.type() == QEvent.FocusOut:
+            text = widget.text()
+
+            # Parse URI
+            parsed_uri = urlparse(text)
+            # Check parsed uri
+            if parsed_uri.scheme not in ["https", "http"]:
+                # Clean the text of the URI input
+                widget.setText("")
         return False
