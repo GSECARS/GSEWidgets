@@ -22,7 +22,7 @@ from gsewidgets import _version
 from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
-from gsewidgets.widgets.labels import Label
+from gsewidgets.widgets.labels import Label, StatusLabel
 from gsewidgets.widgets.buttons import (
     FlatButton,
     FileBrowserButton,
