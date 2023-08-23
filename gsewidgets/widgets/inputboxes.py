@@ -23,14 +23,15 @@ from qtpy.QtGui import QRegularExpressionValidator
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter, MultiFloatEventFilter
 
 __all__ = {
     "InputBox",
     "FileNameInputBox",
     "FilePathInputBox",
     "URIInputBox",
-    "IPv4InputBox"
+    "IPv4InputBox",
+    "MultiFloatInputBox"
 }
 
 
@@ -174,3 +175,30 @@ class IPv4InputBox(InputBox):
         # Set the IPv4 event filter
         self._ipv4_filter = IPv4EventFilter(default_ip=placeholder)
         self.installEventFilter(self._ipv4_filter)
+
+
+class MultiFloatInputBox(InputBox):
+    """
+    Creates an input box that validates its input for single or multiple comma separated floats.
+    """
+
+    def __init__(
+            self,
+            placeholder: Optional[str] = None,
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "multi-float-input-box",
+    ) -> None:
+        super(MultiFloatInputBox, self).__init__(
+            placeholder=placeholder,
+            size=size,
+            object_name=object_name,
+        )
+
+        # Set up a regular expression validator
+        expression = QRegularExpression("^((?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:,\s*(?:0|[1-9][0-9]*)(?:\.[0-9]*)?)*)$")
+        validator = QRegularExpressionValidator(expression, self)
+        self.setValidator(validator)
+
+        # Set the multi float event filter
+        self._multi_float_filter = MultiFloatEventFilter()
+        self.installEventFilter(self._multi_float_filter)

@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------
 
 from gsewidgets import _version
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter, MultiFloatEventFilter
 from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.labels import Label, StatusLabel
@@ -34,7 +34,7 @@ from gsewidgets.widgets.spinboxes import (
     NoWheelNumericSpinBox,
     NumericDataSpinBoxModel,
 )
-from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox, URIInputBox, IPv4InputBox
+from gsewidgets.widgets.inputboxes import InputBox, FilePathInputBox, FileNameInputBox, URIInputBox, IPv4InputBox, MultiFloatInputBox
 from gsewidgets.widgets.comboboxes import FullComboBox
 from gsewidgets.widgets.checkboxes import CheckBox, ToggleCheckBox
 from gsewidgets.widgets.tables import XYZCollectionPointsTable

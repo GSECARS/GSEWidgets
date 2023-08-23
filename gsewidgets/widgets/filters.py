@@ -25,7 +25,7 @@ from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter"}
+__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter, MultiFloatEventFilter"}
 
 
 class FileNameEventFilter(QObject):
@@ -126,3 +126,37 @@ class IPv4EventFilter(QObject):
                 return False
             
         return True
+
+
+class MultiFloatEventFilter(QObject):
+    """Used to parse multi float on focus out events."""
+
+    def __init__(self) -> None:
+        super(MultiFloatEventFilter, self).__init__()
+
+    def eventFilter(self, widget: QLineEdit, event: QEvent) -> bool:
+        """Filter multi float on focus out events."""
+        if event.type() == QEvent.FocusOut:
+            text = widget.text()
+            modified_text = ""
+
+            # Check if the text is empty
+            if text.strip() == "":
+                return False
+
+            # Check multi float
+            for entry in text.split(","):
+
+                # Check each entry for decimal points and add .0 if there are none
+                if "." not in entry:
+                    modified_text += f"{entry}.0, "
+                else:
+                    modified_text += f"{entry}, "
+
+            # Remove the last comma and space
+            modified_text = modified_text[:-2]
+
+            # Set the text to the modified text
+            widget.setText(modified_text)
+                
+        return False
