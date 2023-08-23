@@ -92,10 +92,8 @@ class URIParseEventFilter(QObject):
 class IPv4EventFilter(QObject):
     """Used to parse IPv4 on focus out events."""
 
-    def __init__(self, default_ip: Optional[str] = "127.0.0.1") -> None:
+    def __init__(self) -> None:
         super(IPv4EventFilter, self).__init__()
-
-        self._default_ip = default_ip
 
     def eventFilter(self, widget: QLineEdit, event: QEvent) -> bool:
         """Filter IPv4 on focus out events."""
@@ -105,8 +103,8 @@ class IPv4EventFilter(QObject):
             # Check IPv4
             validated_ipv4 = self._valid_ip_check(ip=text)
             if not validated_ipv4:
-                # Set the IP to the local host
-                widget.setText(self._default_ip)
+                # Set the IP to an empty string
+                widget.setText("")
         return False
 
     def _valid_ip_check(self, ip: str) -> bool:

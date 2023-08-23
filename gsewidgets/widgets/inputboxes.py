@@ -157,7 +157,7 @@ class IPv4InputBox(InputBox):
 
     def __init__(
             self, 
-            placeholder: Optional[str] = "127.0.0.1",
+            placeholder: Optional[str] = "e.g. 127.0.0.1",
             size: Optional[QSize] = None,
             object_name: Optional[str] = "ipv4-input-box"
     ) -> None:
@@ -173,7 +173,7 @@ class IPv4InputBox(InputBox):
         self.setValidator(validator)
 
         # Set the IPv4 event filter
-        self._ipv4_filter = IPv4EventFilter(default_ip=placeholder)
+        self._ipv4_filter = IPv4EventFilter()
         self.installEventFilter(self._ipv4_filter)
 
 
