@@ -18,17 +18,19 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from qtpy.QtCore import QSize, Qt
+from qtpy.QtCore import QSize, Qt, QRegularExpression
+from qtpy.QtGui import QRegularExpressionValidator
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter
+from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter
 
 __all__ = {
     "InputBox",
     "FileNameInputBox",
     "FilePathInputBox",
-    "URIInputBox"
+    "URIInputBox",
+    "IPv4InputBox"
 }
 
 
@@ -144,3 +146,31 @@ class URIInputBox(InputBox):
             # Set the URI event filter
             self._uri_filter = URIParseEventFilter()
             self.installEventFilter(self._uri_filter)
+
+
+class IPv4InputBox(InputBox):
+    """
+    Creates an IPv4 input box with validation. The text will not be changed if the
+    correct scheme is not followed.
+    """
+
+    def __init__(
+            self, 
+            placeholder: Optional[str] = "127.0.0.1",
+            size: Optional[QSize] = None,
+            object_name: Optional[str] = "ipv4-input-box"
+    ) -> None:
+        super().__init__(
+            placeholder=placeholder,
+            size=size,
+            object_name=object_name
+        )
+        
+        # Set up a regular expression validator
+        expression = QRegularExpression("^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
+        validator = QRegularExpressionValidator(expression, self)
+        self.setValidator(validator)
+
+        # Set the IPv4 event filter
+        self._ipv4_filter = IPv4EventFilter(default_ip=placeholder)
+        self.installEventFilter(self._ipv4_filter)

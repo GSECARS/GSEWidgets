@@ -20,11 +20,12 @@
 
 from pathlib import Path
 from urllib.parse import urlparse
+from PyQt6.QtCore import QObject
 from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter"}
+__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter"}
 
 
 class FileNameEventFilter(QObject):
@@ -86,3 +87,42 @@ class URIParseEventFilter(QObject):
                 # Clean the text of the URI input
                 widget.setText("")
         return False
+
+
+class IPv4EventFilter(QObject):
+    """Used to parse IPv4 on focus out events."""
+
+    def __init__(self, default_ip: Optional[str] = "127.0.0.1") -> None:
+        super(IPv4EventFilter, self).__init__()
+
+        self._default_ip = default_ip
+
+    def eventFilter(self, widget: QLineEdit, event: QEvent) -> bool:
+        """Filter IPv4 on focus out events."""
+        if event.type() == QEvent.FocusOut:
+            text = widget.text()
+
+            # Check IPv4
+            validated_ipv4 = self._valid_ip_check(ip=text)
+            if not validated_ipv4:
+                # Set the IP to the local host
+                widget.setText(self._default_ip)
+        return False
+
+    def _valid_ip_check(self, ip: str) -> bool:
+        """Check if the IPv4 address is valid."""
+        sections = ip.split(".")
+
+        # Check if the IP has 4 sections
+        if len(sections) != 4:
+            return False
+        
+        # Check if the IP is valid
+        for section in sections:
+            if not isinstance(int(section), int):
+                return False
+            
+            if int(section) < 0 or int(section) > 255:
+                return False
+            
+        return True
