@@ -29,14 +29,14 @@ from typing import Optional
 
 from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter, MultiFloatEventFilter
 
-__all__ = {
+__all__ = [
     "InputBox",
     "FileNameInputBox",
     "FilePathInputBox",
     "URIInputBox",
     "IPv4InputBox",
     "MultiFloatInputBox"
-}
+]
 
 
 class InputBox(QLineEdit):

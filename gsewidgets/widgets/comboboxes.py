@@ -28,7 +28,7 @@ from qtpy.QtGui import QMouseEvent
 from qtpy.QtWidgets import QComboBox
 from typing import Optional
 
-__all__ = {"FullComboBox"}
+__all__ = ["FullComboBox"]
 
 
 class FullComboBox(QComboBox):

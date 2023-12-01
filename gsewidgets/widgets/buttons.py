@@ -29,12 +29,12 @@ from qtpy.QtGui import QIcon, QColor
 from qtpy.QtWidgets import QPushButton, QFileDialog, QColorDialog
 from typing import Optional
 
-__all__ = {
+__all__ = [
     "FlatButton",
     "FileBrowserButton",
     "DirectoryBrowserButton",
     "ColorDialogButton",
-}
+]
 
 
 class FlatButton(QPushButton):

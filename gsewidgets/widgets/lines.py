@@ -26,7 +26,7 @@
 from qtpy.QtWidgets import QFrame
 from typing import Optional
 
-__all__ = {"VerticalLine", "HorizontalLine"}
+__all__ = ["VerticalLine", "HorizontalLine"]
 
 
 class Line(QFrame):

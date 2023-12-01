@@ -28,7 +28,7 @@ from qtpy.QtGui import QWheelEvent
 from qtpy.QtWidgets import QDoubleSpinBox, QAbstractSpinBox
 from typing import Optional
 
-__all__ = {"NumericSpinBox", "NoWheelNumericSpinBox", "NumericDataSpinBoxModel"}
+__all__ = ["NumericSpinBox", "NoWheelNumericSpinBox", "NumericDataSpinBoxModel"]
 
 
 class NumericSpinBox(QDoubleSpinBox):

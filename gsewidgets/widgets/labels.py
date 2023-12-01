@@ -27,10 +27,10 @@ from qtpy.QtCore import QSize
 from qtpy.QtWidgets import QLabel
 from typing import Optional
 
-__all__ = {
+__all__ = [
     "Label",
     "StatusLabel"
-}
+]
 
 
 class Label(QLabel):

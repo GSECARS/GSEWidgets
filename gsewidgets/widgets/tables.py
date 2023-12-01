@@ -38,7 +38,7 @@ from gsewidgets.widgets.inputboxes import FileNameInputBox
 from gsewidgets.widgets.spinboxes import NoWheelNumericSpinBox, NumericDataSpinBoxModel
 from gsewidgets.widgets.checkboxes import ToggleCheckBox
 
-__all__ = {"XYZCollectionPointsTable"}
+__all__ = ["XYZCollectionPointsTable"]
 
 
 class TableWidget(QTableWidget):

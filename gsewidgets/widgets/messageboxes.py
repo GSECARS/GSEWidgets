@@ -26,7 +26,7 @@
 from qtpy.QtWidgets import QMessageBox
 from typing import Optional
 
-__all__ = {"ErrorMessageBox"}
+__all__ = ["ErrorMessageBox"]
 
 
 class ErrorMessageBox(QMessageBox):

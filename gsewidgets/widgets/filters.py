@@ -30,7 +30,7 @@ from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = {"FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter, MultiFloatEventFilter"}
+__all__ = ["FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter, MultiFloatEventFilter"]
 
 
 class FileNameEventFilter(QObject):

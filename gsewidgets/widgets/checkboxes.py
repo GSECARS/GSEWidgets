@@ -38,7 +38,7 @@ from qtpy.QtGui import QColor, QBrush, QPaintEvent, QPen, QPainter
 from qtpy.QtWidgets import QCheckBox
 from typing import Optional
 
-__all__ = {"CheckBox", "ToggleCheckBox"}
+__all__ =["CheckBox", "ToggleCheckBox"]
 
 
 class CheckBox(QCheckBox):
