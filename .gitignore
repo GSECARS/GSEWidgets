@@ -42,4 +42,4 @@ pypi_build.sh
 pyinstaller_build.sh
 
 # Tests
-tests/
+htmlcov/
