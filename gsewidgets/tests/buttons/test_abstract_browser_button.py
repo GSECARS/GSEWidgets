@@ -25,8 +25,6 @@
 
 import sys
 import unittest
-from qtpy.QtCore import Qt, QSize
-from qtpy.QtTest import QTest
 from qtpy.QtWidgets import QApplication
 
 from gsewidgets.widgets.buttons import AbstractBrowserButton
