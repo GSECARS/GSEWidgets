@@ -27,7 +27,13 @@ from qtpy.QtGui import QRegularExpressionValidator
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-from gsewidgets.widgets.filters import FileNameEventFilter, FilePathEventFilter, URIParseEventFilter, IPv4EventFilter, MultiFloatEventFilter
+from gsewidgets.widgets.filters import (
+    FileNameEventFilter,
+    FilePathEventFilter,
+    URIParseEventFilter,
+    IPv4EventFilter,
+    MultiFloatEventFilter,
+)
 
 __all__ = [
     "InputBox",
@@ -35,7 +41,7 @@ __all__ = [
     "FilePathInputBox",
     "URIInputBox",
     "IPv4InputBox",
-    "MultiFloatInputBox"
+    "MultiFloatInputBox",
 ]
 
 
@@ -135,11 +141,11 @@ class URIInputBox(InputBox):
     """
 
     def __init__(
-            self,
-            placeholder: Optional[str] = "URI",
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "uri-input-box",
-            validate_uri: Optional[bool] = True,
+        self,
+        placeholder: Optional[str] = "URI",
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "uri-input-box",
+        validate_uri: Optional[bool] = True,
     ) -> None:
         super(URIInputBox, self).__init__(
             placeholder=placeholder,
@@ -160,17 +166,13 @@ class IPv4InputBox(InputBox):
     """
 
     def __init__(
-            self, 
-            placeholder: Optional[str] = "e.g. 127.0.0.1",
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "ipv4-input-box"
+        self,
+        placeholder: Optional[str] = "e.g. 127.0.0.1",
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "ipv4-input-box",
     ) -> None:
-        super().__init__(
-            placeholder=placeholder,
-            size=size,
-            object_name=object_name
-        )
-        
+        super().__init__(placeholder=placeholder, size=size, object_name=object_name)
+
         # Set up a regular expression validator
         expression = QRegularExpression("^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
         validator = QRegularExpressionValidator(expression, self)
@@ -187,10 +189,10 @@ class MultiFloatInputBox(InputBox):
     """
 
     def __init__(
-            self,
-            placeholder: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "multi-float-input-box",
+        self,
+        placeholder: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "multi-float-input-box",
     ) -> None:
         super(MultiFloatInputBox, self).__init__(
             placeholder=placeholder,
@@ -199,7 +201,9 @@ class MultiFloatInputBox(InputBox):
         )
 
         # Set up a regular expression validator
-        expression = QRegularExpression("^((?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:,\s*(?:0|[1-9][0-9]*)(?:\.[0-9]*)?)*)$")
+        expression = QRegularExpression(
+            "^((?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:,\s*(?:0|[1-9][0-9]*)(?:\.[0-9]*)?)*)$"
+        )
         validator = QRegularExpressionValidator(expression, self)
         self.setValidator(validator)
 

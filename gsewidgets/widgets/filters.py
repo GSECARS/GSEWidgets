@@ -30,7 +30,12 @@ from qtpy.QtCore import QObject, QEvent
 from qtpy.QtWidgets import QLineEdit
 from typing import Optional
 
-__all__ = ["FileNameEventFilter", "FilePathEventFilter", "URIParseEventFilter", "IPv4EventFilter, MultiFloatEventFilter"]
+__all__ = [
+    "FileNameEventFilter",
+    "FilePathEventFilter",
+    "URIParseEventFilter",
+    "IPv4EventFilter, MultiFloatEventFilter",
+]
 
 
 class FileNameEventFilter(QObject):
@@ -119,15 +124,15 @@ class IPv4EventFilter(QObject):
         # Check if the IP has 4 sections
         if len(sections) != 4:
             return False
-        
+
         # Check if the IP is valid
         for section in sections:
             if not isinstance(int(section), int):
                 return False
-            
+
             if int(section) < 0 or int(section) > 255:
                 return False
-            
+
         return True
 
 
@@ -149,7 +154,6 @@ class MultiFloatEventFilter(QObject):
 
             # Check multi float
             for entry in text.split(","):
-
                 # Check each entry for decimal points and add .0 if there are none
                 if "." not in entry:
                     modified_text += f"{entry}.0, "
@@ -161,5 +165,5 @@ class MultiFloatEventFilter(QObject):
 
             # Set the text to the modified text
             widget.setText(modified_text)
-                
+
         return False

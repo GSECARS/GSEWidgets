@@ -27,10 +27,7 @@ from qtpy.QtCore import QSize
 from qtpy.QtWidgets import QLabel
 from typing import Optional
 
-__all__ = [
-    "Label",
-    "StatusLabel"
-]
+__all__ = ["Label", "StatusLabel"]
 
 
 class Label(QLabel):
@@ -68,16 +65,12 @@ class StatusLabel(Label):
     """Used to create instances of status labels, that provide enabled/disabled status."""
 
     def __init__(
-            self,
-            text: Optional[str] = None,
-            size: Optional[QSize] = None,
-            object_name: Optional[str] = "label-status",
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "label-status",
     ) -> None:
-        super(StatusLabel, self).__init__(
-            text=text,
-            size=size,
-            object_name=object_name
-        )
+        super(StatusLabel, self).__init__(text=text, size=size, object_name=object_name)
 
         # Current status helper
         self._status = False
