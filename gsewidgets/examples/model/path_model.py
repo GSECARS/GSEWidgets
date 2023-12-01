@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 # ----------------------------------------------------------------------
+# Script Name: path_model.py
+# Description: Model that creates the paths for the assets directories.
+#
+# License: GNU General Public License v3.0
+# ----------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
 # Copyright (C) 2022-2023  GSECARS, The University of Chicago, USA

@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 # ----------------------------------------------------------------------
+# Script Name: widgets/__init__.py
+# Description: Implementation of a custom widget collection, primarily
+#              used in GSECARS software.
+#
+# License: GNU General Public License v3.0
+# ----------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
 # Copyright (C) 2022-2023  GSECARS, The University of Chicago, USA

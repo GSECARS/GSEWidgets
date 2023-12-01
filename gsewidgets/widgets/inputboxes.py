@@ -1,4 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/python3# ----------------------------------------------------------------------
+# Script Name: inputboxes.py
+# Description: Implementation of various input box widgets.
+#
+# License: GNU General Public License v3.0
 # ----------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
