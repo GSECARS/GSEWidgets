@@ -107,7 +107,7 @@ class FlatButton(SimpleButton):
         self.setFlat(True)
 
 
-class AbstractBrowserButton(FlatButton):
+class AbstractBrowserButton(SimpleButton):
     """Abstract button class to used for buttons that open QFileDialog widgets."""
 
     def __init__(
