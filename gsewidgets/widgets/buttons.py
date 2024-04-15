@@ -30,6 +30,7 @@ from qtpy.QtWidgets import QPushButton, QFileDialog, QColorDialog
 from typing import Optional
 
 __all__ = [
+    "SimpleButton",
     "FlatButton",
     "FileBrowserButton",
     "DirectoryBrowserButton",
@@ -37,8 +38,8 @@ __all__ = [
 ]
 
 
-class FlatButton(QPushButton):
-    """Used to create instances of simple flat buttons"""
+class SimpleButton(QPushButton):
+    """Used to create instances of simple buttons"""
 
     def __init__(
         self,
@@ -47,7 +48,7 @@ class FlatButton(QPushButton):
         object_name: Optional[str] = "flat-button",
         icon: Optional[QIcon] = None,
     ) -> None:
-        super(FlatButton, self).__init__()
+        super(SimpleButton, self).__init__()
 
         self._text = text
         self._size = size
@@ -58,10 +59,7 @@ class FlatButton(QPushButton):
         self._configure_flat_button()
 
     def _configure_flat_button(self) -> None:
-        """Basic configuration for the flat button."""
-        # Set flat
-        self.setFlat(True)
-
+        """Basic configuration for the simple button."""
         # Add text
         if self._text is not None:
             self.setText(self._text)
@@ -84,6 +82,29 @@ class FlatButton(QPushButton):
     def _button_click_event(self) -> None:
         """Clears the focus state of the button."""
         self.clearFocus()
+
+
+class FlatButton(SimpleButton):
+    """Used to create instances of simple flat buttons"""
+
+    def __init__(
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
+    ) -> None:
+        super(FlatButton, self).__init__(
+            text=text, icon=icon, size=size, object_name=object_name
+        )
+
+        # Run configuration method
+        self._configure_flat_button()
+
+    def _configure_flat_button(self) -> None:
+        """Basic configuration for the flat button."""
+        # Set flat
+        self.setFlat(True)
 
 
 class AbstractBrowserButton(FlatButton):

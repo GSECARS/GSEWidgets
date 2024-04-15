@@ -36,6 +36,7 @@ from gsewidgets.widgets.messageboxes import ErrorMessageBox
 from gsewidgets.widgets.lines import VerticalLine, HorizontalLine
 from gsewidgets.widgets.labels import Label, StatusLabel
 from gsewidgets.widgets.buttons import (
+    SimpleButton,
     FlatButton,
     FileBrowserButton,
     DirectoryBrowserButton,
