@@ -69,11 +69,19 @@ class StatusLabel(Label):
         text: Optional[str] = None,
         size: Optional[QSize] = None,
         object_name: Optional[str] = "label-status",
+        on_status: Optional[str] = "On",
+        off_status: Optional[str] = "Off",
     ) -> None:
         super(StatusLabel, self).__init__(text=text, size=size, object_name=object_name)
 
         # Current status helper
         self._status = False
+        self._on_status = on_status
+        self._off_status = off_status
+
+    def update_status(self, status: bool) -> None:
+        """Updates the status of the status label."""
+        self.status = status
 
     @property
     def status(self) -> bool:
@@ -84,8 +92,4 @@ class StatusLabel(Label):
     def status(self, value: bool) -> None:
         """Sets the status of the status label."""
         self._status = value
-
-    @property
-    def status_as_string(self) -> str:
-        """Returns the verbose current status that is set for the status label."""
-        return "Enabled" if self._status else "Disabled"
+        self.setText(self._on_status if self._status else self._off_status)
