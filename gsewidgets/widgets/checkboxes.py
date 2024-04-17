@@ -193,6 +193,9 @@ class ToggleCheckBox(QCheckBox):
 
         painter.end()
 
+    def update_toggle(self, value: float) -> None:
+        self.setChecked(value)
+
     @Property(float)
     def circle_position(self) -> float:
         return self._circle_position
