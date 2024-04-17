@@ -181,9 +181,6 @@ class FileBrowserButton(AbstractBrowserButton, QObject):
         self._file_path: str = ""
         self._filter: str = ""
 
-        # Connect click event
-        self.clicked.connect(self._button_click_event)
-
         # Configure the file filter string
         self._configure_file_filter()
 
@@ -253,9 +250,6 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
         )
 
         self._directory = ""
-
-        # Connect click event
-        self.clicked.connect(self._button_click_event)
 
     def _button_click_event(self) -> None:
         """Uses QFileDialog to get the selected directory, and emits a directory_changed signal."""
