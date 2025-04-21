@@ -1,14 +1,15 @@
 #!/usr/bin/python3
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Script Name: __init__.py
 # Description: Implementation of a custom widget collection, primarily
 #              used in GSECARS software.
 #
 # License: GNU General Public License v3.0
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022-2023  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2025 GSECARS, The University of Chicago
+# Copyright (C) 2024-2025 NSF SEES, Synchrotron Earth and Environmental Science
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +23,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 from gsewidgets import _version
 from gsewidgets.widgets.filters import (
