@@ -1,8 +1,14 @@
 #!/usr/bin/python3
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Script Name: example_widget.py
+# Description: Example widget for the GSEWidgets example application.
+#
+# License: GNU General Public License v3.0
+# ------------------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2025 GSECARS, The University of Chicago
+# Copyright (C) 2024-2025 NSF SEES, Synchrotron Earth and Environmental Science
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +22,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 from qtpy.QtCore import QSize, Qt
 from qtpy.QtGui import QColor
@@ -37,6 +43,7 @@ from gsewidgets import (
     InputBox,
     FilePathInputBox,
     FileNameInputBox,
+    URIInputBox,
     CheckBox,
     ToggleCheckBox,
     XYZCollectionPointsTable,
@@ -87,6 +94,7 @@ class ExampleWidget(QFrame):
         self.input_normal = InputBox(placeholder="Normal Input")
         self.input_filename = FileNameInputBox(placeholder="Filename Input")
         self.input_filepath = FilePathInputBox(placeholder="Filepath Input")
+        self.input_uri = URIInputBox(placeholder="https://google.com")
 
         self.xyz_table = XYZCollectionPointsTable()
 
@@ -156,6 +164,7 @@ class ExampleWidget(QFrame):
         spin_layout.addWidget(self.input_filename, 1, 8, 1, 1)
         spin_layout.addWidget(VerticalLine(), 1, 9, 1, 1)
         spin_layout.addWidget(self.input_filepath, 1, 10, 1, 1)
+        spin_layout.addWidget(self.input_uri, 1, 11, 1, 1)
 
         # Example xyz table layout
         table_layout = QGridLayout()

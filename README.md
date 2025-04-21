@@ -6,8 +6,6 @@ with specific applications developed for GSECARS.
 
 ## Installation
 
----
-
 GSEWidgets requires the use of Python 3.10 or higher. In some cases lower versions are also accepted,
 but version 3.10 is recommended for best compatibility. See the full [requirements list](#urequirementsu)
 for the GSEWidgets package.
@@ -48,8 +46,6 @@ pip install .
 
 ## Available widgets
 
----
-
 - ErrorMessageBox
 - VerticalLine
 - HorizontalLine
@@ -63,6 +59,7 @@ pip install .
 - InputBox
 - FilePathInputBox
 - FileNameInputBox
+- URIInputBox
 - FullComboBox
 - CheckBox
 - ToggleCheckBox
@@ -82,12 +79,10 @@ app.run()
 
 ## License
 
----
-
 GSEWidgets is distributed under the GNU General Public License version 3. You should have 
 received a copy of the GNU General Public License along with this program.  If not, see 
 <https://www.gnu.org/licenses/>.
 
 <br />
 
-[Christofanis Skordas](mailto:skordasc@uchicago.edu) - Last updated: 25-Oct-2022 
+[Christofanis Skordas](mailto:skordasc@uchicago.edu) - Last updated: 31-Mar-2023 

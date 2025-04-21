@@ -1,0 +1,7 @@
+[run]
+source = 
+    gsewidgets
+omit = 
+    */tests/*
+    */examples/*
+    _version.py

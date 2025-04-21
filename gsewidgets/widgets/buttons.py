@@ -1,8 +1,14 @@
 #!/usr/bin/python3
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Script Name: buttons.py
+# Description: Implementation of various button widgets.
+#
+# License: GNU General Public License v3.0
+# ------------------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2025 GSECARS, The University of Chicago
+# Copyright (C) 2024-2025 NSF SEES, Synchrotron Earth and Environmental Science
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +22,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 from pathlib import Path
 from qtpy.QtCore import QSize, QObject, Signal
@@ -24,16 +30,17 @@ from qtpy.QtGui import QIcon, QColor
 from qtpy.QtWidgets import QPushButton, QFileDialog, QColorDialog
 from typing import Optional
 
-__all__ = {
+__all__ = [
+    "SimpleButton",
     "FlatButton",
     "FileBrowserButton",
     "DirectoryBrowserButton",
     "ColorDialogButton",
-}
+]
 
 
-class FlatButton(QPushButton):
-    """Used to create instances of simple flat buttons"""
+class SimpleButton(QPushButton):
+    """Used to create instances of simple buttons"""
 
     def __init__(
         self,
@@ -42,7 +49,7 @@ class FlatButton(QPushButton):
         object_name: Optional[str] = "flat-button",
         icon: Optional[QIcon] = None,
     ) -> None:
-        super(FlatButton, self).__init__()
+        super(SimpleButton, self).__init__()
 
         self._text = text
         self._size = size
@@ -53,10 +60,7 @@ class FlatButton(QPushButton):
         self._configure_flat_button()
 
     def _configure_flat_button(self) -> None:
-        """Basic configuration for the flat button."""
-        # Set flat
-        self.setFlat(True)
-
+        """Basic configuration for the simple button."""
         # Add text
         if self._text is not None:
             self.setText(self._text)
@@ -81,7 +85,30 @@ class FlatButton(QPushButton):
         self.clearFocus()
 
 
-class AbstractBrowserButton(FlatButton):
+class FlatButton(SimpleButton):
+    """Used to create instances of simple flat buttons"""
+
+    def __init__(
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "flat-button",
+        icon: Optional[QIcon] = None,
+    ) -> None:
+        super(FlatButton, self).__init__(
+            text=text, icon=icon, size=size, object_name=object_name
+        )
+
+        # Run configuration method
+        self._configure_flat_button()
+
+    def _configure_flat_button(self) -> None:
+        """Basic configuration for the flat button."""
+        # Set flat
+        self.setFlat(True)
+
+
+class AbstractBrowserButton(SimpleButton):
     """Abstract button class to used for buttons that open QFileDialog widgets."""
 
     def __init__(
@@ -242,6 +269,33 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
     def directory(self) -> str:
         return self._directory
 
+
+class MultiFileBrowserButton(FileBrowserButton):
+    """Used to create instances of flat button that open a QFileDialog to select multiple files."""
+
+    def __init__(self, text = None, size = None, object_name = "flat-button", icon = None, caption = "Select File", invalid_characters = '<>"\|?*#& ', file_extensions = None):
+        super(MultiFileBrowserButton, self).__init__(text, size, object_name, icon, caption, invalid_characters, file_extensions)
+
+    def _button_click_event(self) -> None:
+        """Uses QFileDialog to get the selected file paths, and emits a file_path_changed signal."""
+        # Clears the focus state of the button
+        self.clearFocus()
+        # Create the QFileDialog widget
+        dialog = QFileDialog()
+        # Set the file mode
+        dialog.setFileMode(QFileDialog.ExistingFiles)
+        # Get the new path for the files
+        new_file_paths, _ = QFileDialog.getOpenFileNames(
+            parent=self,
+            caption=self.caption,
+            directory=self.target_directory,
+            filter=self._filter,
+        )
+
+        # Update the file paths and emit the file_path_changed signal
+        if new_file_paths != "":
+            self._file_path = [Path(file_path).as_posix() for file_path in new_file_paths]
+            self.file_path_changed.emit(True)
 
 class ColorDialogButton(FlatButton, QObject):
     """

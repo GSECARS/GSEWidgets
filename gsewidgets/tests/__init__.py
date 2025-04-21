@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # ------------------------------------------------------------------------------
-# Script Name: lines.py
-# Description: Implementation of vertical and horizontal line widgets.
+# Script Name: gsewidgets/tests/__init__.py
+# Description: Tests for the gsewidgets package.
 #
 # License: GNU General Public License v3.0
 # ------------------------------------------------------------------------------
@@ -23,37 +23,3 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ------------------------------------------------------------------------------
-
-from qtpy.QtWidgets import QFrame
-from typing import Optional
-
-__all__ = ["VerticalLine", "HorizontalLine"]
-
-
-class Line(QFrame):
-    def __init__(self, object_name: Optional[str] = None) -> None:
-        super(Line, self).__init__()
-
-        # Set the object name
-        if object_name is not None:
-            self.setObjectName(object_name)
-
-
-class VerticalLine(Line):
-    """Used to create vertical lines."""
-
-    def __init__(self, object_name: Optional[str] = "vertical-line") -> None:
-        super(VerticalLine, self).__init__(object_name=object_name)
-
-        # Set vertical orientation
-        self.setFrameShape(QFrame.Shape.VLine)
-
-
-class HorizontalLine(Line):
-    """Used to create horizontal lines."""
-
-    def __init__(self, object_name: Optional[str] = "horizontal-line") -> None:
-        super(HorizontalLine, self).__init__(object_name=object_name)
-
-        # Set horizontal orientation
-        self.setFrameShape(QFrame.Shape.HLine)

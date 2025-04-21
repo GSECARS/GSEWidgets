@@ -1,8 +1,14 @@
 #!/usr/bin/python3
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Script Name: labels.py
+# Description: Implementation of various label widgets.
+#
+# License: GNU General Public License v3.0
+# ------------------------------------------------------------------------------
 # GSEWidgets - Collection of gui widgets to be used in GSE software.
 # Author: Christofanis Skordas (skordasc@uchicago.edu)
-# Copyright (C) 2022  GSECARS, The University of Chicago, USA
+# Copyright (C) 2022-2025 GSECARS, The University of Chicago
+# Copyright (C) 2024-2025 NSF SEES, Synchrotron Earth and Environmental Science
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,13 +22,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# ----------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 from qtpy.QtCore import QSize
 from qtpy.QtWidgets import QLabel
 from typing import Optional
 
-__all__ = {"Label"}
+__all__ = ["Label", "StatusLabel"]
 
 
 class Label(QLabel):
@@ -54,3 +60,37 @@ class Label(QLabel):
         # Set the object name
         if self._object_name is not None:
             self.setObjectName(self._object_name)
+
+
+class StatusLabel(Label):
+    """Used to create instances of status labels, that provide enabled/disabled status."""
+
+    def __init__(
+        self,
+        text: Optional[str] = None,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "label-status",
+        on_status: Optional[str] = "On",
+        off_status: Optional[str] = "Off",
+    ) -> None:
+        super(StatusLabel, self).__init__(text=text, size=size, object_name=object_name)
+
+        # Current status helper
+        self._status = False
+        self._on_status = on_status
+        self._off_status = off_status
+
+    def update_status(self, status: bool) -> None:
+        """Updates the status of the status label."""
+        self.status = status
+
+    @property
+    def status(self) -> bool:
+        """Returns the current status that is set for the status label."""
+        return self._status
+
+    @status.setter
+    def status(self, value: bool) -> None:
+        """Sets the status of the status label."""
+        self._status = value
+        self.setText(self._on_status if self._status else self._off_status)
