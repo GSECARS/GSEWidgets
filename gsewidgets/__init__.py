@@ -40,6 +40,7 @@ from gsewidgets.widgets.buttons import (
     FlatButton,
     FileBrowserButton,
     DirectoryBrowserButton,
+    MultiFileBrowserButton,
     ColorDialogButton,
 )
 from gsewidgets.widgets.spinboxes import (
@@ -54,6 +55,7 @@ from gsewidgets.widgets.inputboxes import (
     URIInputBox,
     IPv4InputBox,
     MultiFloatInputBox,
+    TextInfoBox,
 )
 from gsewidgets.widgets.comboboxes import FullComboBox
 from gsewidgets.widgets.checkboxes import CheckBox, ToggleCheckBox

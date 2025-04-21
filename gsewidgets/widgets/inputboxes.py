@@ -24,7 +24,7 @@
 
 from qtpy.QtCore import QSize, Qt, QRegularExpression
 from qtpy.QtGui import QRegularExpressionValidator
-from qtpy.QtWidgets import QLineEdit
+from qtpy.QtWidgets import QLineEdit, QTextEdit
 from typing import Optional
 
 from gsewidgets.widgets.filters import (
@@ -42,6 +42,7 @@ __all__ = [
     "URIInputBox",
     "IPv4InputBox",
     "MultiFloatInputBox",
+    "TextInfoBox",
 ]
 
 
@@ -210,3 +211,39 @@ class MultiFloatInputBox(InputBox):
         # Set the multi float event filter
         self._multi_float_filter = MultiFloatEventFilter()
         self.installEventFilter(self._multi_float_filter)
+
+
+class TextInfoBox(QTextEdit):
+    """Used to display information in a text box."""
+
+    def __init__(
+        self,
+        size: Optional[QSize] = None,
+        object_name: Optional[str] = "text-info-box",
+    ) -> None:
+        super(TextInfoBox, self).__init__()
+
+        self._size = size
+        self._object_name = object_name
+
+        # Run configuration method
+        self._configure_text_info_box()
+
+    def _configure_text_info_box(self) -> None:
+        """Basic configuration of the text info box."""
+        # Set size
+        if self._size is not None:
+            self.setFixedSize(self._size)
+
+        # Set object name
+        if self._object_name is not None:
+            self.setObjectName(self._object_name)
+
+        # Set read only
+        self.setReadOnly(True)
+
+        # Set word wrap mode
+          
+
+        # Disable focus
+        self.setFocusPolicy(Qt.NoFocus)

@@ -269,6 +269,33 @@ class DirectoryBrowserButton(AbstractBrowserButton, QObject):
         return self._directory
 
 
+class MultiFileBrowserButton(FileBrowserButton):
+    """Used to create instances of flat button that open a QFileDialog to select multiple files."""
+
+    def __init__(self, text = None, size = None, object_name = "flat-button", icon = None, caption = "Select File", invalid_characters = '<>"\|?*#& ', file_extensions = None):
+        super(MultiFileBrowserButton, self).__init__(text, size, object_name, icon, caption, invalid_characters, file_extensions)
+
+    def _button_click_event(self) -> None:
+        """Uses QFileDialog to get the selected file paths, and emits a file_path_changed signal."""
+        # Clears the focus state of the button
+        self.clearFocus()
+        # Create the QFileDialog widget
+        dialog = QFileDialog()
+        # Set the file mode
+        dialog.setFileMode(QFileDialog.ExistingFiles)
+        # Get the new path for the files
+        new_file_paths, _ = QFileDialog.getOpenFileNames(
+            parent=self,
+            caption=self.caption,
+            directory=self.target_directory,
+            filter=self._filter,
+        )
+
+        # Update the file paths and emit the file_path_changed signal
+        if new_file_paths != "":
+            self._file_path = [Path(file_path).as_posix() for file_path in new_file_paths]
+            self.file_path_changed.emit(True)
+
 class ColorDialogButton(FlatButton, QObject):
     """
     Used to create instances of flat button that open a QColorDialog to select a color.
